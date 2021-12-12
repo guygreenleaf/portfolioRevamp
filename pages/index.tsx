@@ -61,7 +61,7 @@ const Home: NextPage = () => {
               Sometimes I make software. I like to tinker with things.
             </div>
             <div className={styles.cardTwoText}>
-              Currenly working for the county of SLO as a Software Engineer. 
+              Currenly working for the <a href='https://slocounty.ca.gov/' className={styles.countyText}>county of SLO </a>as a Software Engineer. 
             </div>
           </div>
         </Flex>
@@ -82,7 +82,8 @@ const Home: NextPage = () => {
                   <IconButton
                   colorScheme='blackAlpha'
                   aria-label='GitHub'
-                  size='md'
+                  size='lg'
+                  fontSize="40px"
                   icon={<Icon as = {AiFillGithub} />}
                   />
                 </a>
@@ -92,7 +93,8 @@ const Home: NextPage = () => {
                   <IconButton
                   colorScheme='linkedin'
                   aria-label='GitHub'
-                  size='md'
+                  size='lg'
+                  fontSize="40px"
                   icon={<Icon as = {AiFillLinkedin} />}
                   />
                 </a>

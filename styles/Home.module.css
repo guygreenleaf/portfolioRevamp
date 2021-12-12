@@ -16,20 +16,36 @@
     background-color: whitesmoke;
     border-radius:5px;
     box-shadow: 6px 6px 13px -4px #000000;
-    width: 40%;
-    height:150px;
+    width: 50%;
+    height:200px;
     display:flex;
     flex-direction: row;
     min-width:200px;
 }
 
-@media only screen and (max-width: 630px) {
+.imageContainer{
+    border-radius: 100px;
+    overflow: hidden;
+    height:120px;
+    width:120px;
+    min-width:120px;
+    
+}
+
+.cardOneText{
+    align-self: center;
+    font-size:20px;
+    font-family: 'Montserrat', sans-serif;
+    
+}
+
+@media only screen and (max-width: 850px) {
     .cardContainer{
         background-color: whitesmoke;
         border-radius:5px;
         box-shadow: 6px 6px 13px -4px #000000;
-        width: 40%;
-        height:150px;
+        width: 50%;
+        height:200px;
         display:grid;
     }
 
@@ -40,39 +56,25 @@
         display:flex;
         justify-content: center;
         align-items: center;
-        margin-left:30%;
+        margin-left:32%;
     }
 
     .cardOneText{
         align-self: center;
-        font-size:12px;
+        font-size:16px;
         font-family: 'Montserrat', sans-serif;
-        margin-left:10px;
+        justify-self: center;
     }
   }
 
-.imageContainer{
-    border-radius: 100px;
-    overflow: hidden;
-    height:70px;
-    width:70px;
-    min-width:70px;
-    
-}
 
-.cardOneText{
-    align-self: center;
-    font-size:12px;
-    font-family: 'Montserrat', sans-serif;
-    
-}
 
 .cardTwoContainer{
     background-color: whitesmoke;
     border-radius:5px;
     box-shadow: 6px 6px 13px -4px #000000;
-    width: 40%;
-    height:75px;
+    width: 50%;
+    height:170px;
     display:flex;
     flex-direction: column;
     align-items:center;
@@ -80,12 +82,19 @@
     min-width:200px;
 }
 
+.cardTwoText{
+    align-self: center;
+    font-size:18px;
+    font-family: 'Montserrat', sans-serif;
+    justify-self: center;
+}
+
 .cardThreeContainer{
     background-color: whitesmoke;
     border-radius:5px;
     box-shadow: 6px 6px 13px -4px #000000;
-    width: 40%;
-    height:75px;
+    width: 50%;
+    height:100px;
     display:flex;
     flex-direction: row;
     align-items:center;
@@ -93,17 +102,9 @@
     min-width:200px;
 }
 
-.cardTwoText{
-    align-self: center;
-    font-size:12px;
-    font-family: 'Montserrat', sans-serif;
-    
-}
-
-
 .cardThreeButtonContainer{
     align-self: center;
-    font-size:10px;
+    font-size:20px;
     font-family: 'Montserrat', sans-serif;
     border-radius:5px;
     box-shadow: 3px 3px 11px -6px #000000;
@@ -129,4 +130,11 @@
     
 }
 
+.countyText{
+    color:dodgerblue;
+    font-weight:600;
+}
 
+.countyText:hover{
+    text-decoration:underline;
+}
