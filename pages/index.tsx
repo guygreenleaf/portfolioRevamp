@@ -1,13 +1,18 @@
 import type { NextPage} from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 import profilePic from '../public/me.jpg'
 import styles from '../styles/Home.module.css'
 import { Flex } from '@chakra-ui/react'
 import { Stack } from '@chakra-ui/react'
 import { motion } from "framer-motion"
 import { Icon, IconButton } from '@chakra-ui/react'
+
 import { AiFillGithub } from 'react-icons/ai';
 import {AiFillLinkedin} from 'react-icons/ai';
+import {RiNewspaperFill} from 'react-icons/ri';
+import {RiFolderOpenFill} from 'react-icons/ri';
+
 
 const variants = {
   hidden: { opacity: 0, x: -200, y: 0 },
@@ -17,6 +22,12 @@ const variants = {
 
 
 const Home: NextPage = () => {
+
+
+  let blogRedirect = () => {
+    console.log("haha!");
+  }
+
   return (
     
     <Stack spacing={10} className={styles.containerDiv}>
@@ -52,10 +63,10 @@ const Home: NextPage = () => {
       initial="hidden" // Set the initial state to variants.hidden
       animate="enter" // Animated state to variants.enter
       exit="exit" // Exit state (used later) to variants.exit
-      transition={{ type: 'linear', duration: 1 }} // Set the transition to linear
+      transition={{ type: 'linear', duration: 0.75 }} // Set the transition to linear
       className=""
       >
-        <Flex direction="row" align="center" justify="center">
+        <Flex direction="row" align="center" justify="center" >
           <div className={styles.cardTwoContainer}>
             <div className={styles.cardTwoText}>
               Sometimes I make software. I like to tinker with things.
@@ -67,12 +78,60 @@ const Home: NextPage = () => {
         </Flex>
       </motion.div>
 
+      <Link href="/blog" passHref>
+        <motion.div
+        variants={variants} // Pass the variant object into Framer Motion 
+        initial="hidden" // Set the initial state to variants.hidden
+        animate="enter" // Animated state to variants.enter
+        exit="exit" // Exit state (used later) to variants.exit
+        transition={{ type: 'linear', duration: 1 }} // Set the transition to linear
+        className=""
+        >
+          <Flex direction="column" align="center" justify="center" onClick={blogRedirect}>
+            <div className={styles.cardBlogContainer}>
+              <div>
+                <Icon  boxSize="1.4em"  as={RiNewspaperFill}/>
+              </div>
+              <div className={styles.cardBlogText}>  
+                Blog
+              </div>
+            </div>
+          </Flex>
+        </motion.div>
+      </Link>
+
+
+
+      <Link href="/blog" passHref>
+        <motion.div
+        variants={variants} // Pass the variant object into Framer Motion 
+        initial="hidden" // Set the initial state to variants.hidden
+        animate="enter" // Animated state to variants.enter
+        exit="exit" // Exit state (used later) to variants.exit
+        transition={{ type: 'linear', duration: 1.25 }} // Set the transition to linear
+        className=""
+        >
+          <Flex direction="column" align="center" justify="center" onClick={blogRedirect}>
+            <div className={styles.cardBlogContainer}>
+              <div>
+                <Icon  boxSize="1.4em"  as={RiFolderOpenFill}/>
+              </div>
+              <div className={styles.cardBlogText}>  
+                Résumé
+              </div>
+            </div>
+          </Flex>
+        </motion.div>
+      </Link>
+
+
+
       <motion.div
           variants={variants} // Pass the variant object into Framer Motion 
           initial="hidden" // Set the initial state to variants.hidden
           animate="enter" // Animated state to variants.enter
           exit="exit" // Exit state (used later) to variants.exit
-          transition={{ type: 'linear', duration: 1.25 }} // Set the transition to linear
+          transition={{ type: 'linear', duration: 1.50 }} // Set the transition to linear
           className=""
       >
         <Flex direction="row" align="center" justify="center">

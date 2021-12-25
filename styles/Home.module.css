@@ -98,7 +98,7 @@
 
 .containerDiv{
     background-color:#1a202c;
-    margin-top: 100px;
+    margin-top: 75px;
     
 }
 
@@ -110,6 +110,33 @@
 .countyText:hover{
     text-decoration:underline;
 }
+
+
+
+.cardBlogContainer{
+    background-color: whitesmoke;
+    border-radius:5px;
+    box-shadow: 6px 6px 13px -4px #000000;
+    width: 50%;
+    height:100px;
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content: center;
+    min-width:200px;
+    cursor:pointer;
+}
+
+.cardBlogContainer:hover{
+    opacity:0.9;
+}
+
+.cardBlogText{
+    font-weight:500;
+    margin-left:5px;
+}
+
+
 
 @media only screen and (max-width: 850px) {
     .cardContainer{
@@ -150,6 +177,20 @@
         justify-content: center;
         min-width:200px;
     }
+
+    .cardBlogContainer{
+        background-color: whitesmoke;
+        border-radius:5px;
+        box-shadow: 6px 6px 13px -4px #000000;
+        width: 70%;
+        height:100px;
+        display:flex;
+        flex-direction: row;
+        align-items:center;
+        justify-content: center;
+        min-width:200px;
+        cursor:pointer;
+    }
     
     .cardTwoText{
         align-self: center;
@@ -183,6 +224,8 @@
     .cardThreeInnerText{
         padding:15px;
     }
+
+    
   }
 
 
