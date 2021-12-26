@@ -12,6 +12,17 @@
    
 }
 
+.cardOneBlog{
+    width: 15%;
+    min-width:200px;
+    height: 100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+
 .cardContainer{
     background-color: whitesmoke;
     border-radius:5px;
@@ -32,11 +43,48 @@
     
 }
 
+.imageContainerBlog{
+    border-radius: 100px;
+    overflow: hidden;
+    height:120px;
+    width:120px;
+    min-width:120px;
+    cursor: pointer;
+}
+
 .cardOneText{
     align-self: center;
     font-size:20px;
+    font-family: 'Montserrat', sans-serif; 
+}
+
+.cardOneTextBlog{
+    align-self: center;
+    font-size:35px;
     font-family: 'Montserrat', sans-serif;
-    
+    color: white; 
+    margin-top:25px;
+}
+
+.cardOneTextLowerBlog{
+    align-self: center;
+    font-size:16px;
+    font-family: 'Montserrat', sans-serif;
+    color: white; 
+    margin-top:25px;
+    width:50%;
+    text-align: center;
+}
+
+.cardOneTextLowerBlogTwo{
+    align-self: center;
+    font-size:30px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    color: white; 
+    margin-top:25px;
+    width:50%;
+    text-align: center;
 }
 
 
@@ -100,6 +148,11 @@
     background-color:#1a202c;
     margin-top: 75px;
     
+}
+
+.containerDivBlog{
+    background-color:#1a202c;
+    margin-top: 30px;   
 }
 
 .countyText{

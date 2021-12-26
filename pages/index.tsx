@@ -78,6 +78,7 @@ const Home: NextPage = () => {
         </Flex>
       </motion.div>
 
+
       <Link href="/blog" passHref>
         <motion.div
         variants={variants} // Pass the variant object into Framer Motion 
@@ -102,7 +103,8 @@ const Home: NextPage = () => {
 
 
 
-      <Link href="/blog" passHref>
+      <Link  href="https://publicfilesggreenleaf.s3.us-west-1.amazonaws.com/resume21.pdf" passHref>
+      <a target="_blank">
         <motion.div
         variants={variants} // Pass the variant object into Framer Motion 
         initial="hidden" // Set the initial state to variants.hidden
@@ -117,13 +119,13 @@ const Home: NextPage = () => {
                 <Icon  boxSize="1.4em"  as={RiFolderOpenFill}/>
               </div>
               <div className={styles.cardBlogText}>  
-                Résumé
+                Résumé               
               </div>
             </div>
           </Flex>
         </motion.div>
+        </a>
       </Link>
-
 
 
       <motion.div
