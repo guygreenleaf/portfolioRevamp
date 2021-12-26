@@ -9,6 +9,9 @@ const BlogPostSchema = new mongoose.Schema({
   },
   s3URL: { 
       type: String
+  },
+  blogImage: {
+    type: String
   }
 })
 

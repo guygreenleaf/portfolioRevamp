@@ -52,6 +52,13 @@
     cursor: pointer;
 }
 
+.imageContainerBlogPost{  
+    overflow: hidden;
+    height:200px;
+    width:200px;
+    min-width:120px;
+}
+
 .cardOneText{
     align-self: center;
     font-size:20px;
@@ -121,6 +128,30 @@
     align-items:center;
     justify-content: center;
     min-width:200px;
+}
+
+.blogCardContainer{
+    background-color: whitesmoke;
+    border-radius:5px;
+    box-shadow: 6px 6px 13px -4px #000000;
+    width: 50%;
+    height:200px;
+    display:flex;
+    flex-direction: row;
+    min-width:200px;
+    margin-top:100px;
+}
+
+.blogCardContainer:hover{
+    opacity:0.7;
+    cursor:pointer;
+}
+
+.blogTitleText{
+    font-size: 20px;
+    
+    margin-left:3%;
+    font-weight: bold;
 }
 
 .cardThreeButtonContainer{

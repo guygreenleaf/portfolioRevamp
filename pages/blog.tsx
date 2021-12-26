@@ -6,12 +6,7 @@ import styles from '../styles/Home.module.css'
 import { Flex } from '@chakra-ui/react'
 import { Stack } from '@chakra-ui/react'
 import { motion } from "framer-motion"
-import { Icon, IconButton } from '@chakra-ui/react'
 
-import { AiFillGithub } from 'react-icons/ai';
-import {AiFillLinkedin} from 'react-icons/ai';
-import {RiNewspaperFill} from 'react-icons/ri';
-import {RiFolderOpenFill} from 'react-icons/ri';
 import dbConnect from './api/util/dbConnect'
 import BlogPost from '../models/BlogPost'
 
@@ -62,9 +57,30 @@ const Blog: NextPage = ({posts}:any) => {
             <div className={styles.cardOneTextLowerBlogTwo}>
                 Under construction, coming soon! ^.^
             </div>
+
+
+            {posts.map((post:any) =>(
+          <div key={post._id} className={styles.blogCardContainer}>
+            <div className={styles.imageContainerBlogPost}>
+              <Image src={post.blogImage} 
+                          alt="me"
+                          width="100"
+                          height="100"
+                          layout="responsive"
+                          
+                          />
+            </div>
+            <div className={styles.blogTitleText}>{post.title}</div>
+        </div>
+             ) )
+
+
+        }
+
         </Flex>
       </motion.div>
 
+ 
       </Stack>
 
     );
