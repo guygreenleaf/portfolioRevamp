@@ -59,9 +59,37 @@ const Blog: NextPage = ({posts}:any) => {
               I hope you find something interesting!
             </div>
 
+          { posts.length < 1 &&              
             <div className={styles.cardOneTextLowerBlogTwo}>
                 Under construction, coming soon! ^.^
             </div>
+          }
+
+
+            {posts.map((post:any) =>(
+          <div key={post._id} className={styles.blogCardContainer}>
+            <div className={styles.innerBlogContainer}>
+              <div className={styles.imageContainerBlogPost}>
+              
+                <Image src={post.blogImage} 
+                            alt="me"
+                            width="100"
+                            height="100"
+                            layout="responsive"                            
+                            />
+              
+              </div>
+              <div className={styles.blogTitleText}>{post.title}</div>
+          </div>
+        </div>
+             ) )
+
+
+        }
+
+
+
+      
         </Flex>
       </motion.div>
 
