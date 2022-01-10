@@ -22,148 +22,141 @@ const variants = {
 
 
 const Home: NextPage = () => {
-
-
-  let blogRedirect = () => {
-    console.log("haha!");
-  }
-
   return (
-    
-    <Stack spacing={10} className={styles.containerDiv}>
-      <motion.div
-          variants={variants} // Pass the variant object into Framer Motion 
-          initial="hidden" // Set the initial state to variants.hidden
-          animate="enter" // Animated state to variants.enter
-          exit="exit" // Exit state (used later) to variants.exit
-          transition={{ type: 'linear', duration: 0.5 }} // Set the transition to linear
-          className=""
-      >
-        <Flex direction="row" align="center" justify="center">
-          <div className={styles.cardContainer}>
-            <div className={styles.cardOne} >
-              <div className={styles.imageContainer}>
-                  <Image src={profilePic} 
-                  alt="me"
-                  width="80"
-                  height="80"
-                  layout="responsive"
-                  />
+          <Stack spacing={10} className={styles.containerDiv}>
+            <motion.div
+                variants={variants} // Pass the variant object into Framer Motion 
+                initial="hidden" // Set the initial state to variants.hidden
+                animate="enter" // Animated state to variants.enter
+                exit="exit" // Exit state (used later) to variants.exit
+                transition={{ type: 'linear', duration: 0.5 }} // Set the transition to linear
+                className=""
+            >
+              <Flex direction="row" align="center" justify="center">
+                <div className={styles.cardContainer}>
+                  <div className={styles.cardOne} >
+                    <div className={styles.imageContainer}>
+                        <Image src={profilePic} 
+                        alt="me"
+                        width="80"
+                        height="80"
+                        layout="responsive"
+                        />
+                      </div>
+                  </div>
+                  <div className={styles.cardOneText}>
+                    Hi there 👋 I&lsquo;m Guy <span className={styles.cityStateText}>Greenleaf</span> <br />  SLO, California🌊 
+                  </div>
                 </div>
-            </div>
-            <div className={styles.cardOneText}>
-              Hi there 👋 I&lsquo;m Guy <span className={styles.cityStateText}>Greenleaf</span> <br />  SLO, California🌊 
-            </div>
-          </div>
-        </Flex>
-      </motion.div>
+              </Flex>
+            </motion.div>
 
-      <motion.div
-      variants={variants} // Pass the variant object into Framer Motion 
-      initial="hidden" // Set the initial state to variants.hidden
-      animate="enter" // Animated state to variants.enter
-      exit="exit" // Exit state (used later) to variants.exit
-      transition={{ type: 'linear', duration: 0.75 }} // Set the transition to linear
-      className=""
-      >
-        <Flex direction="row" align="center" justify="center" >
-          <div className={styles.cardTwoContainer}>
-            <div className={styles.cardTwoText}>
-              Sometimes I make software. I like to tinker with things.
-            </div>
-            <div className={styles.cardTwoText}>
-              Currenly working for the <a href='https://slocounty.ca.gov/' className={styles.countyText}>county of SLO </a>as a Software Engineer. 
-            </div>
-          </div>
-        </Flex>
-      </motion.div>
+            <motion.div
+            variants={variants} // Pass the variant object into Framer Motion 
+            initial="hidden" // Set the initial state to variants.hidden
+            animate="enter" // Animated state to variants.enter
+            exit="exit" // Exit state (used later) to variants.exit
+            transition={{ type: 'linear', duration: 0.75 }} // Set the transition to linear
+            className=""
+            >
+              <Flex direction="row" align="center" justify="center" >
+                <div className={styles.cardTwoContainer}>
+                  <div className={styles.cardTwoText}>
+                    Sometimes I make software. I like to tinker with things.
+                  </div>
+                  <div className={styles.cardTwoText}>
+                    Currenly working for the <a href='https://slocounty.ca.gov/' className={styles.countyText}>county of SLO </a>as a Software Engineer. 
+                  </div>
+                </div>
+              </Flex>
+            </motion.div>
 
 
-      <Link href="/blog" passHref>
-        <motion.div
-        variants={variants} // Pass the variant object into Framer Motion 
-        initial="hidden" // Set the initial state to variants.hidden
-        animate="enter" // Animated state to variants.enter
-        exit="exit" // Exit state (used later) to variants.exit
-        transition={{ type: 'linear', duration: 1 }} // Set the transition to linear
-        className=""
-        >
-          <Flex direction="column" align="center" justify="center" onClick={blogRedirect}>
-            <div className={styles.cardBlogContainer}>
-              <div>
-                <Icon  boxSize="1.4em"  as={RiNewspaperFill}/>
-              </div>
-              <div className={styles.cardBlogText}>  
-                Blog
-              </div>
-            </div>
-          </Flex>
-        </motion.div>
-      </Link>
+            <Link href="/blog" passHref>
+              <motion.div
+              variants={variants} // Pass the variant object into Framer Motion 
+              initial="hidden" // Set the initial state to variants.hidden
+              animate="enter" // Animated state to variants.enter
+              exit="exit" // Exit state (used later) to variants.exit
+              transition={{ type: 'linear', duration: 1 }} // Set the transition to linear
+              className=""
+              >
+                <Flex direction="column" align="center" justify="center">
+                  <div className={styles.cardBlogContainer}>
+                    <div>
+                      <Icon  boxSize="1.4em"  as={RiNewspaperFill}/>
+                    </div>
+                    <div className={styles.cardBlogText}>  
+                      Blog
+                    </div>
+                  </div>
+                </Flex>
+              </motion.div>
+            </Link>
 
 
 
-      <Link  href="https://publicfilesggreenleaf.s3.us-west-1.amazonaws.com/resume21.pdf" passHref>
-      <a target="_blank">
-        <motion.div
-        variants={variants} // Pass the variant object into Framer Motion 
-        initial="hidden" // Set the initial state to variants.hidden
-        animate="enter" // Animated state to variants.enter
-        exit="exit" // Exit state (used later) to variants.exit
-        transition={{ type: 'linear', duration: 1.25 }} // Set the transition to linear
-        className=""
-        >
-          <Flex direction="column" align="center" justify="center" onClick={blogRedirect}>
-            <div className={styles.cardBlogContainer}>
-              <div>
-                <Icon  boxSize="1.4em"  as={RiFolderOpenFill}/>
-              </div>
-              <div className={styles.cardBlogText}>  
-                Résumé               
-              </div>
-            </div>
-          </Flex>
-        </motion.div>
-        </a>
-      </Link>
+            <Link  href="https://publicfilesggreenleaf.s3.us-west-1.amazonaws.com/resume21.pdf" passHref>
+            <a target="_blank">
+              <motion.div
+              variants={variants} // Pass the variant object into Framer Motion 
+              initial="hidden" // Set the initial state to variants.hidden
+              animate="enter" // Animated state to variants.enter
+              exit="exit" // Exit state (used later) to variants.exit
+              transition={{ type: 'linear', duration: 1.25 }} // Set the transition to linear
+              className=""
+              >
+                <Flex direction="column" align="center" justify="center">
+                  <div className={styles.cardBlogContainer}>
+                    <div>
+                      <Icon  boxSize="1.4em"  as={RiFolderOpenFill}/>
+                    </div>
+                    <div className={styles.cardBlogText}>  
+                      Résumé               
+                    </div>
+                  </div>
+                </Flex>
+              </motion.div>
+              </a>
+            </Link>
 
 
-      <motion.div
-          variants={variants} // Pass the variant object into Framer Motion 
-          initial="hidden" // Set the initial state to variants.hidden
-          animate="enter" // Animated state to variants.enter
-          exit="exit" // Exit state (used later) to variants.exit
-          transition={{ type: 'linear', duration: 1.50 }} // Set the transition to linear
-          className=""
-      >
-        <Flex direction="row" align="center" justify="center">
-          <div className={styles.cardThreeContainer}>
-            <div className={styles.cardThreeButtonContainer}>
-                <a href="https://github.com/guygreenleaf" >
-                  <IconButton
-                  colorScheme='blackAlpha'
-                  aria-label='GitHub'
-                  size='lg'
-                  fontSize="40px"
-                  icon={<Icon as = {AiFillGithub} />}
-                  />
-                </a>
-            </div>
-            <div className={styles.cardThreeLinkedInContainer}>
-                <a href="https://www.linkedin.com/in/guy-greenleaf/" >
-                  <IconButton
-                  colorScheme='linkedin'
-                  aria-label='GitHub'
-                  size='lg'
-                  fontSize="40px"
-                  icon={<Icon as = {AiFillLinkedin} />}
-                  />
-                </a>
-            </div>
-          </div>
-        </Flex>
-    </motion.div>
-  </Stack>
+            <motion.div
+                variants={variants} // Pass the variant object into Framer Motion 
+                initial="hidden" // Set the initial state to variants.hidden
+                animate="enter" // Animated state to variants.enter
+                exit="exit" // Exit state (used later) to variants.exit
+                transition={{ type: 'linear', duration: 1.50 }} // Set the transition to linear
+                className=""
+            >
+              <Flex direction="row" align="center" justify="center">
+                <div className={styles.cardThreeContainer}>
+                  <div className={styles.cardThreeButtonContainer}>
+                      <a href="https://github.com/guygreenleaf" >
+                        <IconButton
+                        colorScheme='blackAlpha'
+                        aria-label='GitHub'
+                        size='lg'
+                        fontSize="40px"
+                        icon={<Icon as = {AiFillGithub} />}
+                        />
+                      </a>
+                  </div>
+                  <div className={styles.cardThreeLinkedInContainer}>
+                      <a href="https://www.linkedin.com/in/guy-greenleaf/" >
+                        <IconButton
+                        colorScheme='linkedin'
+                        aria-label='GitHub'
+                        size='lg'
+                        fontSize="40px"
+                        icon={<Icon as = {AiFillLinkedin} />}
+                        />
+                      </a>
+                  </div>
+                </div>
+              </Flex>
+          </motion.div>
+        </Stack>
   )
 }
 
