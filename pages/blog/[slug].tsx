@@ -20,14 +20,15 @@ const variants = {
   }
 
 
-const PostPage: NextPage = ({frontmatter: {title, published, cover_image}, slug, content}:any) => {
-   cover_image = "/../public/" + cover_image;
+const PostPage: NextPage = ({frontmatter: {title, published, cover_image, live}, slug, content}:any) => {
+  console.log(cover_image);
+   cover_image = "/" + cover_image;
 
-   console.log(cover_image);
     return (
-      <Stack spacing={10} className={styles.containerDivBlog}>
+      <Stack spacing={2} className={styles.blogWrapper}>
       <Flex direction="column" align="center" justify="center">
 
+      {/* Back Button + Prof Pic */}
         <Link href="/blog" passHref>
           <div className={styles.topLeftHome}>
             <ArrowBackIcon w={8} h={8} color='white' className={styles.hoverArrow}></ArrowBackIcon>
@@ -36,14 +37,15 @@ const PostPage: NextPage = ({frontmatter: {title, published, cover_image}, slug,
                                       alt="me"
                                       width="60"
                                       height="60"
-                                      layout="fixed"                             
+                                      layout="fixed" 
+                                      priority                            
                 /> 
             </div>      
           </div>
         </Link>
 
 
-   
+   {/* blog posting */}
       <motion.div
                       variants={variants} // Pass the variant object into Framer Motion 
                       initial="hidden" // Set the initial state to variants.hidden
@@ -52,19 +54,31 @@ const PostPage: NextPage = ({frontmatter: {title, published, cover_image}, slug,
                       transition={{ type: 'linear', duration: 0.9 }} // Set the transition to linear
                       className=""
                   >
-                      <span style={{color:'white'}}>WORK IN PROGRESS</span>
-        {/* <Image src={cover_image}
-               alt="me"
-               height="100"
-               width="100"
-               layout="fixed"
-        /> */}
+      <div className={styles.blogContentContainer}>
+          <div className={styles.slugImageContainer}> 
+             <Image src={cover_image}
+                alt="me"
+                layout="fill"
+                className={styles.image}
+                priority
+          /> 
+           </div>
 
 
+        <div className={styles.metaCardContainer}>
+          <h1 style={{color:'black', fontWeight:'bold', fontSize:'20px'}}>{title}</h1>
+          <h2 style={{opacity:'0.5'}}>{formatDate(published)}</h2>
+        </div>
+
+        {live ? <>
+        <div style={{color:'whitesmoke'}}>
+          {content}
+        </div>
+        </> : <h1 style={{color:'white', textAlign:'center', fontSize:'20px', marginTop:'20px;', fontWeight:'bold'}}>Coming soon!</h1>}
+
+      </div>
+            
         </motion.div>
-     
-
-        
       </Flex>
       </Stack>
     );
@@ -99,3 +113,10 @@ export async function getStaticProps({params: {slug}}:any) {
     },
   }
 }
+
+const options = { year: 'numeric', month: 'long', day: 'numeric' };
+
+export const formatDate = (ts: number) => {
+    return new Date(ts).toLocaleDateString('en-US', options as any);
+};
+

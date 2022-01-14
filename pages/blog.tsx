@@ -32,7 +32,6 @@ const Blog: NextPage = ({posts}:any) => {
                       animate="enter" // Animated state to variants.enter
                       exit="exit" // Exit state (used later) to variants.exit
                       transition={{ type: 'linear', duration: 0.9 }} // Set the transition to linear
-                      className=""
                   >
                     <Flex direction="column" align="center" justify="center">
                         <div className={styles.cardOneBlog} >
@@ -56,6 +55,7 @@ const Blog: NextPage = ({posts}:any) => {
                         {posts.map((post:any) =>(
                           <Link key={post.slug} href={"/blog/" + post.slug} passHref>
                             <div key={post.slug} className={styles.blogCardContainer}>
+                              
                                 <div className='thumbnail' >
                                   <style jsx>{`
                                     .thumbnail {
@@ -64,6 +64,7 @@ const Blog: NextPage = ({posts}:any) => {
                                       min-width:35%;
                                       background-size: cover;
                                       background-position: 50%;
+                                      border-radius:12px;
                                     }
 
                                     @media only screen and (max-width: 1000px){
@@ -72,6 +73,7 @@ const Blog: NextPage = ({posts}:any) => {
                                         height: 120px;
                                         background-size: cover;
                                         background-position: 50%;
+                                        border-radius:12px;
                                       }
                                     }
                                   `}</style>                             
