@@ -126,9 +126,9 @@ const PhotosPage: NextPage = ({photos}:any) => {
                         <div className={styles.cloudFoldersContainer}>                           
                             {photos.map((image:any) => {                       
                             return (                               
-                                <>
-                                <a target="_blank">
+                                <>                              
                                 <Link href={`${image.url}`}  passHref>
+                                <a target="_blank">
                                     <div key={image.asset_id} className={styles.cloudImages}>    
                                         <div className={styles.cloudImageThumbnails}>                                           
                                             <Image src={image.url}
@@ -140,8 +140,8 @@ const PhotosPage: NextPage = ({photos}:any) => {
                                             ></Image>
                                         </div>
                                     </div>
-                                </Link>    
-                                </a>                            
+                                    </a>  
+                                </Link>                                                            
                                 </>                     
                             )                            
                             })}
