@@ -259,6 +259,95 @@
     cursor: pointer;
 }
 
+
+
+
+
+
+
+/* cloud stuff  */
+.cloudFoldersContainer{
+    margin-top:100px;
+    display:flex;
+    flex-direction: row;
+    width:95%;
+    height:95%;
+    flex-wrap: wrap;
+}
+
+.cloudFolders{
+    padding:15px 15px 15px 15px;
+    background-color: whitesmoke;
+    height:15%;
+    width:15%;
+    margin: 1rem;
+    border-radius:15px;
+    margin: 10px 20px;
+    box-shadow: 6px 6px 13px -4px #000000;
+    cursor: pointer;
+}
+
+.animo{
+    max-width:50px;
+}
+
+
+
+
+
+.cloudFolders:hover{
+    opacity:0.85;
+}
+
+.cloudFolderNames{
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.cloudFolderThumbnails{
+    
+    border-radius: 15px;
+    overflow: hidden;
+    height:100%;
+    width:100%;
+    align-self: center;
+    
+}
+
+
+.cloudImageThumbnails{  
+    margin-top:5%;
+    border-radius: 15px;
+    overflow: hidden;
+    height:90%;
+    width:100%;
+    align-self: center; 
+}
+
+
+.cloudImages{
+    padding:15px 15px 15px 15px;
+    background-color: whitesmoke;
+    height:20rem;
+    width:20rem;
+    margin: 1rem;
+    border-radius:15px;
+    margin: 10px 20px;
+    box-shadow: 6px 6px 13px -4px #000000;
+    cursor: pointer;
+}
+
+.folderName{
+    /* color:white;
+    text-align: center;
+    font-weight: bold;
+    font-size:35px;
+    margin-top:50px;
+    width:10vw; */
+}
+
+
 @media only screen and (max-width: 850px) {
     .cardContainer{
         background-color: whitesmoke;

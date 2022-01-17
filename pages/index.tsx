@@ -9,6 +9,8 @@ import { motion } from "framer-motion"
 import { Icon, IconButton } from '@chakra-ui/react'
 
 import { AiFillGithub } from 'react-icons/ai';
+import {AiFillCamera} from 'react-icons/ai';
+
 import {AiFillLinkedin} from 'react-icons/ai';
 import {RiNewspaperFill} from 'react-icons/ri';
 import {RiFolderOpenFill} from 'react-icons/ri';
@@ -93,6 +95,30 @@ const Home: NextPage = () => {
                 </Flex>
               </motion.div>
             </Link>
+
+
+            <Link href="/photography" passHref>
+              <motion.div
+              variants={variants} // Pass the variant object into Framer Motion 
+              initial="hidden" // Set the initial state to variants.hidden
+              animate="enter" // Animated state to variants.enter
+              exit="exit" // Exit state (used later) to variants.exit
+              transition={{ type: 'linear', duration: 1 }} // Set the transition to linear
+              className=""
+              >
+                <Flex direction="column" align="center" justify="center">
+                  <div className={styles.cardBlogContainer}>
+                    <div>
+                      <Icon  boxSize="1.4em"  as={AiFillCamera}/>
+                    </div>
+                    <div className={styles.cardBlogText}>  
+                      Photography Log
+                    </div>
+                  </div>
+                </Flex>
+              </motion.div>
+            </Link>
+
 
 
 
