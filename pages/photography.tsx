@@ -134,7 +134,7 @@ const Photography: NextPage = ({folders, images}:any) => {
                             </div>
                             </Link>
                         </div>
-                        <div className={styles.cardOneTextBlog}>
+                        <div className={styles.titleTextBlog}>
                           Guy&apos;s Photography Log
                         </div>
                         <div className={styles.cardOneTextLowerBlog}>

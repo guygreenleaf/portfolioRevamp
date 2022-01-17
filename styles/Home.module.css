@@ -65,6 +65,15 @@
     font-weight: bold;
 }
 
+.titleTextBlog{
+    text-align: center;
+    font-size:35px;
+    font-family: 'Montserrat', sans-serif;
+    color: white; 
+    margin-top:25px;
+    font-weight: bold;
+}
+
 .cardOneTextLowerBlog{
     align-self: center;
     font-size:16px;
@@ -356,8 +365,8 @@
     justify-content: center;
     width:100%;
     margin-bottom:15px;
+    margin-top:25px;
 }
-
 
 .folderName{
     color:white;
