@@ -74,7 +74,7 @@ const PostPage: NextPage = ({frontmatter: {title, published, cover_image, live},
         <div style={{color:'whitesmoke'}}>
           {content}
         </div>
-        </> : <h1 style={{color:'white', textAlign:'center', fontSize:'20px', marginTop:'20px;', fontWeight:'bold'}}>Coming soon!</h1>}
+        </> : <h1 style={{color:'white', textAlign:'center', fontSize:'20px', marginTop:'20px', fontWeight:'bold'}}>Coming soon!</h1>}
 
       </div>
             

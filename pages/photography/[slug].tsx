@@ -91,7 +91,7 @@ const PhotosPage: NextPage = ({photos}:any) => {
 
   
     return (
-      <Stack spacing={2} className={styles.blogWrapper}>
+      <Stack spacing={2} className={styles.photoWrapper}>
       <Flex direction="column" align="center" justify="center">
 
       {/* Back Button + Prof Pic */}
@@ -119,16 +119,17 @@ const PhotosPage: NextPage = ({photos}:any) => {
                       exit="exit" // Exit state (used later) to variants.exit
                       transition={{ type: 'linear', duration: 0.9 }} // Set the transition to linear
                   >
-              
-                     {/* <div className={styles.folderName}>
-                      {ParseFolderName(photos[0].folder)}
-                    </div>  */}
+                      <div className={styles.folderNameContainer}>
+                        <div className={styles.folderName}>
+                            {ParseFolderName(photos[0].folder)}
+                        </div> 
+                    </div>
                         <div className={styles.cloudFoldersContainer}>                           
                             {photos.map((image:any) => {                       
                             return (                               
                                 <>                              
                                 <Link href={`${image.url}`}  passHref>
-                                <a target="_blank">
+                                <a target="_blank" className={styles.aref}>
                                     <div key={image.asset_id} className={styles.cloudImages}>    
                                         <div className={styles.cloudImageThumbnails}>                                           
                                             <Image src={image.url}
