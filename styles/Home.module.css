@@ -109,6 +109,7 @@
     align-items:center;
     justify-content: center;
     min-width:200px;
+    text-align: center;
 }
 
 .cardTwoText{
@@ -417,6 +418,8 @@
         align-items:center;
         justify-content: center;
         min-width:200px;
+        text-align: center;
+        padding:5px 5px;
     }
 
     .cardBlogContainer{

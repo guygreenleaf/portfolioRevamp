@@ -1,5 +1,5 @@
 import type { NextPage} from 'next'
-import {useState} from 'react';
+import React, {useState, Fragment} from 'react';
 import Image from 'next/image'
 import Link from 'next/link'
 import profilePic from '../public/me.jpg'
@@ -148,7 +148,7 @@ const Photography: NextPage = ({folders, images}:any) => {
                         
                             return (
                                 
-                                <>
+                                <React.Fragment key={folder.path}>
                                 <Link href={{
                                     pathname: `/photography/[id]`,
                                     query: { 
@@ -171,7 +171,7 @@ const Photography: NextPage = ({folders, images}:any) => {
                                         </div>
                                     </div>
                                 </Link>                                
-                                </>                     
+                                </React.Fragment>                     
                             )                            
                             })}
                         </div>
