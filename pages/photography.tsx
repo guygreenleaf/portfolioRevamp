@@ -183,7 +183,7 @@ const Photography: NextPage = ({folders, images}:any) => {
 
 export default Photography;
 
-export async function getStaticProps(){
+export async function getServerSideProps(){
 
     const {folders} = await getFolders();
 
