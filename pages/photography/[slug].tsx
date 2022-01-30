@@ -142,7 +142,9 @@ const PhotosPage: NextPage = ({photos}:any) => {
                                       alt="me"
                                       width="60"
                                       height="60"
-                                      layout="fixed" 
+                                      layout="fixed"
+                                      placeholder='blur'
+                                      blurDataURL="https://images.freeimages.com/images/large-previews/abd/blurry-background-1638609.jpg" 
                                       priority                            
                 /> 
             </div>      
