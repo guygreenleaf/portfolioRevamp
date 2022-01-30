@@ -1,4 +1,5 @@
 import type { NextPage} from 'next'
+import {useState} from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import profilePic from '../../public/me.jpg'
@@ -7,12 +8,19 @@ import { Flex } from '@chakra-ui/react'
 import { Stack } from '@chakra-ui/react'
 import { motion } from "framer-motion"
 import { ArrowBackIcon } from '@chakra-ui/icons'
+import { Spinner } from '@chakra-ui/react'
 
 
 import { getFolderImages } from '../../lib/cloudinary';
 
 const variants = {
     hidden: { opacity: 0, x: 0, y: -150 },
+    enter: { opacity: 1, x: 0, y: 0 },
+    exit: { opacity: 0, x: 0, y: -100 },
+  }
+
+const variantSpinner = {
+    hidden: { opacity: 0, x: 0, y: -100 },
     enter: { opacity: 1, x: 0, y: 0 },
     exit: { opacity: 0, x: 0, y: -100 },
   }
@@ -88,6 +96,37 @@ const variants = {
 
 
 const PhotosPage: NextPage = ({photos}:any) => {
+    let [loadingCircle, showLoadingCircle] = useState(false);
+    let pageLoading = () => {
+        showLoadingCircle(true);
+      }
+
+
+      if(loadingCircle){return (<div className={styles.containerDiv}>
+        <motion.div
+         variants={variantSpinner} // Pass the variant object into Framer Motion 
+         initial="hidden" // Set the initial state to variants.hidden
+         animate="enter" // Animated state to variants.enter
+         exit="exit" // Exit state (used later) to variants.exit
+         transition={{ type: 'linear', duration: 0.6 }} // Set the transition to linear
+         className={styles.containerDiv}
+         >
+           <div className={styles.containerDiv}>
+             <Flex direction="column" align="center" justify="center">
+               <div className={styles.titleTextBlog}>
+                 Loading my photo log, just a sec...😄 📷
+               </div>
+               <Spinner
+                 thickness='4px'
+                 speed='0.65s'
+                 emptyColor='gray.200'
+                 color='blue.500'
+                 size='xl'
+               />
+             </Flex>
+           </div>
+       </motion.div>
+       </div>)}
 
   
     return (
@@ -96,7 +135,7 @@ const PhotosPage: NextPage = ({photos}:any) => {
 
       {/* Back Button + Prof Pic */}
         <Link href="/photography" passHref>
-          <div className={styles.topLeftHome}>
+          <div className={styles.topLeftHome} onClick={() => {pageLoading()}}>
             <ArrowBackIcon w={8} h={8} color='white' className={styles.hoverArrow}></ArrowBackIcon>
               <div className={styles.topRightImageContainer}>
                 <Image src={profilePic} 

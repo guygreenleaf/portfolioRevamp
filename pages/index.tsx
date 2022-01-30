@@ -1,4 +1,5 @@
 import type { NextPage} from 'next'
+import {useState} from 'react';
 import Image from 'next/image'
 import Link from 'next/link'
 import profilePic from '../public/me.jpg'
@@ -7,6 +8,7 @@ import { Flex } from '@chakra-ui/react'
 import { Stack } from '@chakra-ui/react'
 import { motion } from "framer-motion"
 import { Icon, IconButton } from '@chakra-ui/react'
+import { Spinner } from '@chakra-ui/react'
 
 import { AiFillGithub } from 'react-icons/ai';
 import {AiFillCamera} from 'react-icons/ai';
@@ -22,8 +24,46 @@ const variants = {
   exit: { opacity: 0, x: 0, y: -100 },
 }
 
+const variantSpinner = {
+  hidden: { opacity: 0, x: 0, y: -100 },
+  enter: { opacity: 1, x: 0, y: 0 },
+  exit: { opacity: 0, x: 0, y: -100 },
+}
 
 const Home: NextPage = () => {
+
+  let [loadingCircle, showLoadingCircle] = useState(false);
+
+  let pageLoading = () => {
+    showLoadingCircle(true);
+  }
+
+  if(loadingCircle){return (<div className={styles.containerDiv}>
+   <motion.div
+    variants={variantSpinner} // Pass the variant object into Framer Motion 
+    initial="hidden" // Set the initial state to variants.hidden
+    animate="enter" // Animated state to variants.enter
+    exit="exit" // Exit state (used later) to variants.exit
+    transition={{ type: 'linear', duration: 0.6 }} // Set the transition to linear
+    className={styles.containerDiv}
+    >
+      <div className={styles.containerDiv}>
+        <Flex direction="column" align="center" justify="center">
+          <div className={styles.titleTextBlog}>
+            Loading my photo log, just a sec...😄 📷
+          </div>
+          <Spinner
+            thickness='4px'
+            speed='0.65s'
+            emptyColor='gray.200'
+            color='blue.500'
+            size='xl'
+          />
+        </Flex>
+      </div>
+  </motion.div>
+  </div>)}
+
   return (
           <Stack spacing={10} className={styles.containerDiv}>
             <motion.div
@@ -96,29 +136,29 @@ const Home: NextPage = () => {
               </motion.div>
             </Link>
 
-
-            <Link href="/photography" passHref>
-              <motion.div
-              variants={variants} // Pass the variant object into Framer Motion 
-              initial="hidden" // Set the initial state to variants.hidden
-              animate="enter" // Animated state to variants.enter
-              exit="exit" // Exit state (used later) to variants.exit
-              transition={{ type: 'linear', duration: 1 }} // Set the transition to linear
-              className=""
-              >
-                <Flex direction="column" align="center" justify="center">
-                  <div className={styles.cardBlogContainer}>
-                    <div>
-                      <Icon  boxSize="1.4em"  as={AiFillCamera}/>
+            <div onClick={() => {pageLoading()}}>
+              <Link href="/photography" passHref>
+                <motion.div
+                variants={variants} // Pass the variant object into Framer Motion 
+                initial="hidden" // Set the initial state to variants.hidden
+                animate="enter" // Animated state to variants.enter
+                exit="exit" // Exit state (used later) to variants.exit
+                transition={{ type: 'linear', duration: 1 }} // Set the transition to linear
+                className=""
+                >
+                  <Flex direction="column" align="center" justify="center">
+                    <div className={styles.cardBlogContainer}>
+                      <div>
+                        <Icon  boxSize="1.4em"  as={AiFillCamera}/>
+                      </div>
+                      <div className={styles.cardBlogText}>  
+                        Photography Log
+                      </div>
                     </div>
-                    <div className={styles.cardBlogText}>  
-                      Photography Log
-                    </div>
-                  </div>
-                </Flex>
-              </motion.div>
-            </Link>
-
+                  </Flex>
+                </motion.div>
+              </Link>
+            </div>
 
 
 

@@ -7,6 +7,7 @@ import styles from '../styles/Home.module.css'
 import { Flex } from '@chakra-ui/react'
 import { Stack } from '@chakra-ui/react'
 import { motion } from "framer-motion"
+import { Spinner } from '@chakra-ui/react'
 
 import {getFolders, getFolderThumbs } from '../lib/cloudinary';
 
@@ -93,6 +94,12 @@ const variants = {
     exit: { opacity: 0, x: 0, y: -100 },
   }
 
+const variantSpinner = {
+    hidden: { opacity: 0, x: 0, y: -100 },
+    enter: { opacity: 1, x: 0, y: 0 },
+    exit: { opacity: 0, x: 0, y: -100 },
+  }
+
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
 
   export const formatDate = (ts: number) => {
@@ -101,18 +108,40 @@ const variants = {
 
 
 const Photography: NextPage = ({folders, images}:any) => {
-    const [imageIndex, setImageIndex]  = useState(0);
-
-    
-    let increaseImageIdx = () => {
-        setImageIndex(imageIndex+1);
-    }
+    let [loadingCircle, showLoadingCircle] = useState(false);
+    let pageLoading = () => {
+        showLoadingCircle(true);
+      }
 
 
+      if(loadingCircle){return (<div className={styles.containerDiv}>
+        <motion.div
+         variants={variantSpinner} // Pass the variant object into Framer Motion 
+         initial="hidden" // Set the initial state to variants.hidden
+         animate="enter" // Animated state to variants.enter
+         exit="exit" // Exit state (used later) to variants.exit
+         transition={{ type: 'linear', duration: 0.6 }} // Set the transition to linear
+         className={styles.containerDiv}
+         >
+           <div className={styles.containerDiv}>
+             <Flex direction="column" align="center" justify="center">
+               <div className={styles.titleTextBlog}>
+                 Loading photos, just a sec...😄 📷
+               </div>
+               <Spinner
+                 thickness='4px'
+                 speed='0.65s'
+                 emptyColor='gray.200'
+                 color='blue.500'
+                 size='xl'
+               />
+             </Flex>
+           </div>
+       </motion.div>
+       </div>)}
 
     //console.log(images);
     return (
-
               <Stack spacing={10} className={styles.containerDivBlog}>
                   <motion.div
                       variants={variants} // Pass the variant object into Framer Motion 
@@ -148,21 +177,22 @@ const Photography: NextPage = ({folders, images}:any) => {
                         
                             return (
                                 
-                                <React.Fragment key={folder.path}>
+                                <React.Fragment key={folder.path} >
                                 <Link href={{
                                     pathname: `/photography/[id]`,
                                     query: { 
                                         id: folder.name,
                                         date:ParseFolderName(folder.name)
                                     }
-                                    }} as={`/photography/${folder.name}`} passHref key={folder.path}>
-                                    <div className={styles.cloudFolders}>    
+                                    }} as={`/photography/${folder.name}`} passHref key={folder.path} >
+                                    <div className={styles.cloudFolders} onClick={() => {pageLoading()}}>    
                                         <div className={styles.cloudFolderThumbnails}>                                           
                                             <Image src={folder.imageUrl}
                                             alt="folderURI"
                                             height="100"
                                             width="100"
                                             layout="responsive"
+                                            blurDataURL='https://images.freeimages.com/images/large-previews/bdb/free-blurry-background-1636594.jpg'
                                             priority
                                             ></Image>
                                         </div>
@@ -184,7 +214,7 @@ const Photography: NextPage = ({folders, images}:any) => {
 export default Photography;
 
 export async function getServerSideProps(){
-
+    
     const {folders} = await getFolders();
 
     const images:any = [];
