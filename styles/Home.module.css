@@ -52,7 +52,7 @@
 
 .cardOneText{
     align-self: center;
-    font-size:20px;
+    font-size:1.55rem;
     font-family: 'Montserrat', sans-serif; 
 }
 
@@ -380,7 +380,7 @@
 }
 
 
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 1100px) {
     .cardContainer{
         background-color: whitesmoke;
         border-radius:5px;
@@ -402,7 +402,7 @@
 
     .cardOneText{
         align-self: center;
-        font-size:16px;
+        font-size:1.50rem;
         font-family: 'Montserrat', sans-serif;
         justify-self: center;
     }
