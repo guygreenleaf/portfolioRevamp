@@ -9,14 +9,13 @@ import { Stack } from '@chakra-ui/react'
 import { motion } from "framer-motion"
 import { Icon, IconButton } from '@chakra-ui/react'
 import { Spinner } from '@chakra-ui/react'
-
 import { AiFillGithub } from 'react-icons/ai';
 import {AiFillCamera} from 'react-icons/ai';
-
 import {AiFillLinkedin} from 'react-icons/ai';
 import {RiNewspaperFill} from 'react-icons/ri';
 import {RiFolderOpenFill} from 'react-icons/ri';
-
+import cameraIco  from '../media/camera.png';
+import contract from '../media/contract.png'
 
 const variants = {
   hidden: { opacity: 0, x: -200, y: 0 },
@@ -104,10 +103,10 @@ const Home: NextPage = () => {
               <Flex direction="row" align="center" justify="center" >
                 <div className={styles.cardTwoContainer}>
                   <div className={styles.cardTwoText}>
-                    Sometimes I make software. I like to tinker with things.
+                    Thanks for stopping by. I like to tinker with things and take cool photos.
                   </div>
                   <div className={styles.cardTwoText}>
-                    Currenly working for the <a href='https://slocounty.ca.gov/' className={styles.countyText}>county of SLO </a>as a Software Engineer. 
+                    I&apos;m currently working for the <a href='https://slocounty.ca.gov/' className={styles.countyText}>county of SLO </a>as a Software Engineer. 
                   </div>
                 </div>
               </Flex>
@@ -136,8 +135,8 @@ const Home: NextPage = () => {
               </motion.div>
             </Link> */}
 
-            <div onClick={() => {pageLoading()}}>
-              <Link href="/photography" passHref>
+            <div >
+              <a href="https://www.flickr.com/photos/195923393@N02/" rel="noopener noreferrer" target="_blank">
                 <motion.div
                 variants={variants} // Pass the variant object into Framer Motion 
                 initial="hidden" // Set the initial state to variants.hidden
@@ -148,16 +147,17 @@ const Home: NextPage = () => {
                 >
                   <Flex direction="column" align="center" justify="center">
                     <div className={styles.cardBlogContainer}>
-                      <div>
-                        <Icon  boxSize="1.4em"  as={AiFillCamera}/>
+                      <div style={{marginBottom: '5px'}}>
+                        <Image src={cameraIco} alt="FlickerLogo" height="40px" width="40px">
+                        </Image>
                       </div>
                       <div className={styles.cardBlogText}>  
-                        Photography Log
+                      Photography 
                       </div>
                     </div>
                   </Flex>
                 </motion.div>
-              </Link>
+              </a>
             </div>
 
 
@@ -175,7 +175,9 @@ const Home: NextPage = () => {
                 <Flex direction="column" align="center" justify="center">
                   <div className={styles.cardBlogContainer}>
                     <div>
-                      <Icon  boxSize="1.4em"  as={RiFolderOpenFill}/>
+                      <Image src={contract} alt="ResumeIcon" height="40px" width="40px">
+
+                      </Image>
                     </div>
                     <div className={styles.cardBlogText}>  
                       Résumé               
