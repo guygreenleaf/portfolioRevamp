@@ -106,7 +106,7 @@ const Home: NextPage = () => {
                     Thanks for stopping by. I like to tinker with things and take cool photos.
                   </div>
                   <div className={styles.cardTwoText}>
-                    I&apos;m currently working for the <a href='https://slocounty.ca.gov/' className={styles.countyText}>county of SLO </a>as a Software Engineer. 
+                    I&apos;m currently working for the <a href='https://slocounty.ca.gov/' target="_blank" rel="noreferrer" className={styles.countyText}>county of SLO </a>as a Software Engineer. 
                   </div>
                 </div>
               </Flex>
