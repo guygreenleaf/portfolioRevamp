@@ -1,5 +1,5 @@
 import type { NextPage} from 'next'
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 import Image from 'next/image'
 import Link from 'next/link'
 import profilePic from '../public/me.jpg'
@@ -12,6 +12,7 @@ import { Spinner } from '@chakra-ui/react'
 import { AiFillGithub } from 'react-icons/ai';
 import {AiFillCamera} from 'react-icons/ai';
 import {AiFillLinkedin} from 'react-icons/ai';
+import {TiSocialInstagram} from 'react-icons/ti';
 import {RiNewspaperFill} from 'react-icons/ri';
 import {RiFolderOpenFill} from 'react-icons/ri';
 import { useToast } from '@chakra-ui/react'
@@ -374,7 +375,7 @@ const Home: NextPage = () => {
               <Flex direction="row" align="center" justify="center">
                 <div className={styles.cardThreeContainer}>
                   <div className={styles.cardThreeButtonContainer}>
-                      <a href="https://github.com/guygreenleaf" >
+                      <a href="https://github.com/guygreenleaf" target="_blank" rel="noreferrer" >
                         <IconButton
                         colorScheme='blackAlpha'
                         aria-label='GitHub'
@@ -384,14 +385,26 @@ const Home: NextPage = () => {
                         />
                       </a>
                   </div>
-                  <div className={styles.cardThreeLinkedInContainer}>
-                      <a href="https://www.linkedin.com/in/guy-greenleaf/" >
+                  <div className={styles.cardThreeButtonContainer}>
+                      <a href="https://www.linkedin.com/in/guy-greenleaf/" target="_blank" rel="noreferrer" >
                         <IconButton
                         colorScheme='linkedin'
-                        aria-label='GitHub'
+                        aria-label='LinkedIn'
                         size='lg'
                         fontSize="40px"
                         icon={<Icon as = {AiFillLinkedin} />}
+                        />
+                      </a>
+                  </div>
+
+                  <div className={styles.cardThreeButtonContainer}>
+                      <a href="https://www.instagram.com/guy_greenleaf/" target="_blank" rel="noreferrer" >
+                        <IconButton
+                        colorScheme='purple'
+                        aria-label='Instagram'
+                        size='lg'
+                        fontSize="40px"
+                        icon={<Icon as = {TiSocialInstagram} />}
                         />
                       </a>
                   </div>
