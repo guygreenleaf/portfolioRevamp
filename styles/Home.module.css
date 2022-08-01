@@ -51,6 +51,7 @@
 }
 
 .cardOneText{
+    color:black;
     align-self: center;
     font-size:1.55rem;
     font-family: 'Montserrat', sans-serif; 
@@ -117,6 +118,7 @@
     font-size:18px;
     font-family: 'Montserrat', sans-serif;
     justify-self: center;
+    color:black;
 }
 
 .cardThreeContainer{
@@ -142,6 +144,7 @@
 }
 
 .cardThreeInnerText{
+    color:black;
     padding:15px;
 }
 
@@ -152,6 +155,7 @@
 
 .cityStateText{
     font-weight: bold;
+    color:black;
 }
 
 .containerDiv{
@@ -171,6 +175,7 @@
 }
 
 .countyText:hover{
+    
     text-decoration:underline;
 }
 
@@ -193,6 +198,7 @@
 }
 
 .cardBlogText{
+    color:black;
     font-weight:500;
     margin-left:5px;
 }
@@ -401,6 +407,7 @@
     }
 
     .cardOneText{
+        color:black;
         align-self: center;
         font-size:1.15rem;
         font-family: 'Montserrat', sans-serif;

@@ -8,13 +8,9 @@ import { Flex, Box } from '@chakra-ui/react'
 import { Stack } from '@chakra-ui/react'
 import { motion } from "framer-motion"
 import { Icon, IconButton } from '@chakra-ui/react'
-import { Spinner } from '@chakra-ui/react'
 import { AiFillGithub } from 'react-icons/ai';
-import {AiFillCamera} from 'react-icons/ai';
 import {AiFillLinkedin} from 'react-icons/ai';
 import {TiSocialInstagram} from 'react-icons/ti';
-import {RiNewspaperFill} from 'react-icons/ri';
-import {RiFolderOpenFill} from 'react-icons/ri';
 import { useToast } from '@chakra-ui/react'
 import cameraIco  from '../media/camera.png';
 import contract from '../media/contract.png'
@@ -32,10 +28,8 @@ import {
 import dynamic from 'next/dynamic'
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import 'quill/dist/quill.snow.css'; // Add css for snow theme
-import { SMTPClient } from 'emailjs';
 import ReCAPTCHA from "react-google-recaptcha";
 import * as emailjs from 'emailjs-com'
-
 
 const variants = {
   hidden: { opacity: 0, x: -200, y: 0 },
@@ -43,15 +37,8 @@ const variants = {
   exit: { opacity: 0, x: 0, y: -100 },
 }
 
-const variantSpinner = {
-  hidden: { opacity: 0, x: 0, y: -100 },
-  enter: { opacity: 1, x: 0, y: 0 },
-  exit: { opacity: 0, x: 0, y: -100 },
-}
-
 const Home: NextPage = () => {
 
-  let [loadingCircle, showLoadingCircle] = useState(false);
   const [emailMessage, setEmailMessage] = useState('');
   const [isModalOpen, changeModalOpen] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
@@ -77,6 +64,7 @@ const Home: NextPage = () => {
     resetState();
     setPreviewing(false);
   }
+
 
   let modalChangeHandler = () => {
     changeModalOpen(!isModalOpen);
@@ -104,14 +92,6 @@ const Home: NextPage = () => {
     setEmailMessage('');
   }
 
-  const onReCAPTCHAChange = (captchaCode:any) => {
-    if(!captchaCode) {
-      return;
-    }
-    setIsVerified(true);
-    recaptchaRef.current.reset();
-  }
-
   let verifyEmail = ():boolean => {
     var isValid = true;
 
@@ -136,7 +116,17 @@ const Home: NextPage = () => {
 
   const toast:any = useToast()
 
-  function sendEmail() {
+  let ValidateHuman = async (token: string) => {
+    return await (await fetch(`/api/validateHuman/${token}`)).json();
+  }
+
+  async function sendEmail() {
+    recaptchaRef.current.reset();
+
+    const token = await recaptchaRef.current.executeAsync();
+    
+    const isValidRecaptcha = await ValidateHuman(token);
+
     const templateParams = {
       from_name: from,
       from_email: fromEmail,
@@ -144,8 +134,7 @@ const Home: NextPage = () => {
       message: emailMessage,
     }
 
-    if(isVerified && verifyEmail()===true) {
-      console.log("AAA!!!")
+    if(verifyEmail() === true && isValidRecaptcha === true) {
       emailjs.send(
         process.env.NEXT_PUBLIC_SERVICE_ID ?? 'error',
         process.env.NEXT_PUBLIC_TEMPLATE_ID ?? 'error',
@@ -153,12 +142,10 @@ const Home: NextPage = () => {
         process.env.NEXT_PUBLIC_EMAILJS_USER_ID
       )
         .then((result:any) => {
-          if(result.text === "OK"){
-            
+          if(result.text === "OK"){        
             resetState();
             setPreviewing(false);
             changeModalOpen(false);
-
             toast({
               title: 'Email Sent!',
               description: "I'll reach out to you soon!",
@@ -178,6 +165,7 @@ const Home: NextPage = () => {
           })
         });
       } else {
+        if(validationErrors.length > 0){
         validationErrors.forEach(element => {
           toast({
             title: 'Error Sending Email.',
@@ -187,35 +175,17 @@ const Home: NextPage = () => {
             isClosable: true,
           })
         });
+      } else if (isValidRecaptcha === false) {
+        toast({
+          title: 'Error Sending Email.',
+          description: `Error - Invalid Recaptcha`,
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
       }
+    }
   }
-
-
-  if(loadingCircle){return (<div className={styles.containerDiv}>
-   <motion.div
-    variants={variantSpinner} // Pass the variant object into Framer Motion 
-    initial="hidden" // Set the initial state to variants.hidden
-    animate="enter" // Animated state to variants.enter
-    exit="exit" // Exit state (used later) to variants.exit
-    transition={{ type: 'linear', duration: 0.6 }} // Set the transition to linear
-    className={styles.containerDiv}
-    >
-      <div className={styles.containerDiv}>
-        <Flex direction="column" align="center" justify="center">
-          <div className={styles.titleTextBlog}>
-            Loading my photo log, just a sec...😄 📷
-          </div>
-          <Spinner
-            thickness='4px'
-            speed='0.65s'
-            emptyColor='gray.200'
-            color='blue.500'
-            size='xl'
-          />
-        </Flex>
-      </div>
-  </motion.div>
-  </div>)}
 
   return (
           <Stack spacing={10} className={styles.containerDiv}>
@@ -240,7 +210,7 @@ const Home: NextPage = () => {
                       </div>
                   </div>
                   <div className={styles.cardOneText}>
-                    Hi there 👋 I&lsquo;m Guy <span className={styles.cityStateText}>Greenleaf</span> <br />  SLO, California🌊 
+                    Hi there 👋 I&lsquo;m Guy <span className={styles.cityStateText}>Greenleaf</span> <br /> SLO, California🌊 
                   </div>
                 </div>
               </Flex>
@@ -266,31 +236,8 @@ const Home: NextPage = () => {
               </Flex>
             </motion.div>
 
-
-            {/* <Link href="/blog" passHref>
-              <motion.div
-              variants={variants} // Pass the variant object into Framer Motion 
-              initial="hidden" // Set the initial state to variants.hidden
-              animate="enter" // Animated state to variants.enter
-              exit="exit" // Exit state (used later) to variants.exit
-              transition={{ type: 'linear', duration: 1 }} // Set the transition to linear
-              className=""
-              >
-                <Flex direction="column" align="center" justify="center">
-                  <div className={styles.cardBlogContainer}>
-                    <div>
-                      <Icon  boxSize="1.4em"  as={RiNewspaperFill}/>
-                    </div>
-                    <div className={styles.cardBlogText}>  
-                      Blog
-                    </div>
-                  </div>
-                </Flex>
-              </motion.div>
-            </Link> */}
-
-            <div >
-              <a href="https://www.flickr.com/photos/195923393@N02/" rel="noopener noreferrer" target="_blank">
+            <Link  href="https://www.flickr.com/photos/195923393@N02/" passHref>
+              <a target="_blank">
                 <motion.div
                 variants={variants} // Pass the variant object into Framer Motion 
                 initial="hidden" // Set the initial state to variants.hidden
@@ -312,31 +259,30 @@ const Home: NextPage = () => {
                   </Flex>
                 </motion.div>
               </a>
-            </div>
-
+            </Link>
 
             <Link  href="https://publicfilesggreenleaf.s3.us-west-1.amazonaws.com/resume21.pdf" passHref>
-            <a target="_blank">
-              <motion.div
-              variants={variants} // Pass the variant object into Framer Motion 
-              initial="hidden" // Set the initial state to variants.hidden
-              animate="enter" // Animated state to variants.enter
-              exit="exit" // Exit state (used later) to variants.exit
-              transition={{ type: 'linear', duration: 1.25 }} // Set the transition to linear
-              className=""
-              >
-                <Flex direction="column" align="center" justify="center">
-                  <div className={styles.cardBlogContainer}>
-                    <div>
-                      <Image src={contract} alt="ResumeIcon" height="40px" width="40px">
-                      </Image>
+              <a target="_blank">
+                <motion.div
+                variants={variants} // Pass the variant object into Framer Motion 
+                initial="hidden" // Set the initial state to variants.hidden
+                animate="enter" // Animated state to variants.enter
+                exit="exit" // Exit state (used later) to variants.exit
+                transition={{ type: 'linear', duration: 1.25 }} // Set the transition to linear
+                className=""
+                >
+                  <Flex direction="column" align="center" justify="center">
+                    <div className={styles.cardBlogContainer}>
+                      <div>
+                        <Image src={contract} alt="ResumeIcon" height="40px" width="40px">
+                        </Image>
+                      </div>
+                      <div className={styles.cardBlogText}>  
+                        Résumé               
+                      </div>
                     </div>
-                    <div className={styles.cardBlogText}>  
-                      Résumé               
-                    </div>
-                  </div>
-                </Flex>
-              </motion.div>
+                  </Flex>
+                </motion.div>
               </a>
             </Link>
 
@@ -355,14 +301,13 @@ const Home: NextPage = () => {
                       <Image src={email} alt="FlickerLogo" height="40px" width="40px">
                       </Image>
                     </div>
-                    <div className={styles.cardBlogText}>  
-                    Contact
-                    </div>
+                      <div className={styles.cardBlogText}>  
+                        Contact
+                      </div>
                   </div>
                 </Flex>
               </motion.div>     
             </div>
-
 
             <motion.div
                 variants={variants} // Pass the variant object into Framer Motion 
@@ -457,10 +402,9 @@ const Home: NextPage = () => {
               </div>
               <div>          
                 <ReCAPTCHA
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ? process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY : 'error'}      
+                    size="invisible"
                     ref={recaptchaRef}
-                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ? process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY : 'error'}                   
-                    onChange={onReCAPTCHAChange}
-                    
                   />
               </div>
               <Box mt="4">
