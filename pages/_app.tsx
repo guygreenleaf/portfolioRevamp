@@ -8,6 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     
     <ChakraProvider>
+      <meta name="viewport" content="width=device-width, user-scalable=no" />
       <Component {...pageProps} />
     </ChakraProvider>
   )
