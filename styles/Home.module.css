@@ -53,7 +53,8 @@
 .cardOneText{
     color:black;
     align-self: center;
-    font-size:1.55rem;
+    margin-right:1.5rem;
+    font-size:1.75rem;
     font-family: 'Montserrat', sans-serif; 
 }
 
@@ -409,7 +410,7 @@
     .cardOneText{
         color:black;
         align-self: center;
-        font-size:1.15rem;
+        font-size:1.75rem;
         font-family: 'Montserrat', sans-serif;
         justify-self: center;
     }

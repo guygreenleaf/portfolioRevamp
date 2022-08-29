@@ -217,9 +217,7 @@ const Home: NextPage = () => {
               </div>
             </div>
             <div className={styles.cardOneText}>
-              Hi there 👋 I&lsquo;m Guy{" "}
-              <span className={styles.cityStateText}>Greenleaf</span> <br />{" "}
-              SLO, California🌊
+              Hi there 👋 
             </div>
           </div>
         </Flex>
