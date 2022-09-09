@@ -274,7 +274,7 @@ const Home: NextPage = () => {
       </Link> */}
 
       <Link
-        href="https://publicfilesggreenleaf.s3.us-west-1.amazonaws.com/resume21.pdf"
+        href="https://publicfilesggreenleaf.s3.us-west-1.amazonaws.com/Resume+2022.pdf"
         passHref>
         <a target="_blank">
           <motion.div
