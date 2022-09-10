@@ -274,7 +274,7 @@ const Home: NextPage = () => {
       </Link> */}
 
       <Link
-        href="https://publicfilesggreenleaf.s3.us-west-1.amazonaws.com/Resume+2022.pdf"
+        href={process.env.NEXT_PUBLIC_RESUME_LINK ?? "www.guygreenleaf.com/404"}
         passHref>
         <a target="_blank">
           <motion.div
