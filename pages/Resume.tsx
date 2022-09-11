@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
     } else {     
         blobLink = `${process.env.NEXT_RESUME_BLOB_URI_PROD}`;
     }
-    //@ts-ignore
+    //NOTE: For Debug, need to add agent as second param and @ts-ignore this line 
     const res = await fetch(blobLink);
 
     uri = await res.text();
