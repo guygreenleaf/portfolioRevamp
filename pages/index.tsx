@@ -31,6 +31,8 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "quill/dist/quill.snow.css"; // Add css for snow theme
 import ReCAPTCHA from "react-google-recaptcha";
 import * as emailjs from "emailjs-com";
+import Head from 'next/head'
+
 
 const variants = {
   hidden: { opacity: 0, x: -200, y: 0 },
@@ -196,6 +198,7 @@ const Home: NextPage = () => {
 
   return (
     <Stack spacing={10} className={styles.containerDiv}>
+      <Head><title>Guy Greenleaf</title></Head>
       <motion.div
         variants={variants} // Pass the variant object into Framer Motion
         initial="hidden" // Set the initial state to variants.hidden

@@ -1,8 +1,10 @@
 import type { GetServerSideProps, NextPage } from "next";
+import Head from 'next/head'
 
 const Resume: NextPage = ({resumeURI}: any) => {  
     return(
         <div>
+            <Head><title>Résumé</title></Head>
             <div>   
                 <iframe style={{height:"100vh", width:"100vw"}} src={resumeURI}></iframe>
             </div>
