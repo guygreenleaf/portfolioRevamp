@@ -16,19 +16,22 @@ export async function getServerSideProps() {
     var blobLink:string  = "";
     var uri = "";
     
+    const https = require("https");
+    const agent = new https.Agent({
+      rejectUnauthorized: false
+    })
+
     if(process.env.NODE_ENV == "development"){
         blobLink = `${process.env.NEXT_RESUME_BLOB_URI_DEV}`;
-        const https = require("https");
-        const agent = new https.Agent({
-          rejectUnauthorized: false
-        })
+
         //@ts-ignore
         const res = await fetch(blobLink, {agent});
         uri = await res.text();
         console.log(uri);
-    } else {
+    } else {     
         blobLink = `${process.env.NEXT_RESUME_BLOB_URI_PROD}`;
-        const res = await fetch(blobLink);
+        //@ts-ignore
+        const res = await fetch(blobLink, {agent});
         uri = await res.text();
     }
 
