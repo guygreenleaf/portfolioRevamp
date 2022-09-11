@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 
 const Resume: NextPage = ({resumeURI}: any) => {  
     return(
@@ -12,7 +12,7 @@ const Resume: NextPage = ({resumeURI}: any) => {
 
 export default Resume;
 
-export async function getServerSideProps(){
+export const getServerSideProps: GetServerSideProps = async(context) => {
     var blobLink:string  = "";
     var uri = "";
     
@@ -27,7 +27,7 @@ export async function getServerSideProps(){
         blobLink = `${process.env.NEXT_RESUME_BLOB_URI_PROD}`;
     }
     //@ts-ignore
-    const res = await fetch(blobLink, {agent});
+    const res = await fetch(blobLink);
 
     uri = await res.text();
 

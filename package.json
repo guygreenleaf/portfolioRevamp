@@ -15,6 +15,7 @@
     "@types/marked": "^4.0.1",
     "@types/react-google-recaptcha": "^2.1.5",
     "@types/react-recaptcha": "^2.3.4",
+    "concurrently": "^7.4.0",
     "emailjs": "^4.0.0",
     "emailjs-com": "^3.2.0",
     "framer-motion": "^4",
