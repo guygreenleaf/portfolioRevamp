@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 
-const resume: NextPage = ({resumeURI}: any) => {  
+const Resume: NextPage = ({resumeURI}: any) => {  
     return(
         <div>
             <div>   
@@ -10,7 +10,7 @@ const resume: NextPage = ({resumeURI}: any) => {
     ) 
 };
 
-export default resume;
+export default Resume;
 
 export async function getServerSideProps(){
     var blobLink:string  = "";
@@ -30,7 +30,7 @@ export async function getServerSideProps(){
     } else {     
         blobLink = `${process.env.NEXT_RESUME_BLOB_URI_PROD}`;
         //@ts-ignore
-        const res = await fetch(blobLink);
+        const res = await fetch(blobLink, {agent});
         console.log(await res.text());
         uri = await res.text();
     }
