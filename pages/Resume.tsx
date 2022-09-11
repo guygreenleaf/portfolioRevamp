@@ -30,8 +30,11 @@ export async function getServerSideProps() {
         console.log(uri);
     } else {     
         blobLink = `${process.env.NEXT_RESUME_BLOB_URI_PROD}`;
+        console.log("BLOBLINK");
+        console.log(blobLink);
         //@ts-ignore
         const res = await fetch(blobLink, {agent});
+        console.log(await res.text());
         uri = await res.text();
     }
 
