@@ -12,7 +12,7 @@ const resume: NextPage = ({resumeURI}: any) => {
 
 export default resume;
 
-export async function getServerSideProps() {
+export async function getStaticProps(){
     var blobLink:string  = "";
     var uri = "";
     
@@ -27,11 +27,8 @@ export async function getServerSideProps() {
         //@ts-ignore
         const res = await fetch(blobLink, {agent});
         uri = await res.text();
-        console.log(uri);
     } else {     
         blobLink = `${process.env.NEXT_RESUME_BLOB_URI_PROD}`;
-        console.log("BLOBLINK");
-        console.log(blobLink);
         //@ts-ignore
         const res = await fetch(blobLink, {agent});
         console.log(await res.text());
