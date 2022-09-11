@@ -23,17 +23,13 @@ export async function getServerSideProps(){
 
     if(process.env.NODE_ENV == "development"){
         blobLink = `${process.env.NEXT_RESUME_BLOB_URI_DEV}`;
-
-        //@ts-ignore
-        const res = await fetch(blobLink, {agent});
-        uri = await res.text();
     } else {     
         blobLink = `${process.env.NEXT_RESUME_BLOB_URI_PROD}`;
-        //@ts-ignore
-        const res = await fetch(blobLink, {agent});
-        console.log(await res.text());
-        uri = await res.text();
     }
+    //@ts-ignore
+    const res = await fetch(blobLink, {agent});
+
+    uri = await res.text();
 
     return {
       props: {
