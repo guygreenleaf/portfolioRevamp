@@ -29,7 +29,7 @@ export const getStaticProps: GetStaticProps = async(context) => {
         blobLink = `${process.env.NEXT_RESUME_BLOB_URI_PROD}`;
     }
     //NOTE: For Debug, need to add agent as second param and @ts-ignore this line 
-    const res = await fetch(blobLink, {agent});
+    const res = await fetch(blobLink);
 
     uri = await res.text();
 
