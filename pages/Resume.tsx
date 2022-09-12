@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import Head from 'next/head'
 
 const Resume: NextPage = ({resumeURI}: any) => {  
@@ -14,7 +14,7 @@ const Resume: NextPage = ({resumeURI}: any) => {
 
 export default Resume;
 
-export const getServerSideProps: GetServerSideProps = async(context) => {
+export const getStaticProps: GetStaticProps = async(context) => {
     var blobLink:string  = "";
     var uri = "";
     
@@ -29,13 +29,14 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
         blobLink = `${process.env.NEXT_RESUME_BLOB_URI_PROD}`;
     }
     //NOTE: For Debug, need to add agent as second param and @ts-ignore this line 
-    const res = await fetch(blobLink);
+    const res = await fetch(blobLink, {agent});
 
     uri = await res.text();
 
     return {
       props: {
         resumeURI: uri
-      }
+      },
+      revalidate:86400 //revalidate every day
     }
   }
