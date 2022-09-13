@@ -226,6 +226,7 @@ const Home: NextPage = () => {
         </Flex>
       </motion.div>
 
+
       <motion.div
         variants={variants} // Pass the variant object into Framer Motion
         initial="hidden" // Set the initial state to variants.hidden
@@ -252,7 +253,7 @@ const Home: NextPage = () => {
       </motion.div>
 
       <Link
-        href="/currentresume"
+        href="/resume"
         passHref>
         <a target="_blank">
           <motion.div
