@@ -251,33 +251,8 @@ const Home: NextPage = () => {
         </Flex>
       </motion.div>
 
-      {/* <Link href="https://www.flickr.com/photos/195923393@N02/" passHref>
-        <a target="_blank">
-          <motion.div
-            variants={variants} // Pass the variant object into Framer Motion
-            initial="hidden" // Set the initial state to variants.hidden
-            animate="enter" // Animated state to variants.enter
-            exit="exit" // Exit state (used later) to variants.exit
-            transition={{ type: "linear", duration: 1 }} // Set the transition to linear
-            className="">
-            <Flex direction="column" align="center" justify="center">
-              <div className={styles.cardBlogContainer}>
-                <div style={{ marginBottom: "5px" }}>
-                  <Image
-                    src={cameraIco}
-                    alt="FlickerLogo"
-                    height="40px"
-                    width="40px"></Image>
-                </div>
-                <div className={styles.cardBlogText}>Photography</div>
-              </div>
-            </Flex>
-          </motion.div>
-        </a>
-      </Link> */}
-
       <Link
-        href="/resume"
+        href="/currentresume"
         passHref>
         <a target="_blank">
           <motion.div
