@@ -1,4 +1,3 @@
-import { url } from 'inspector';
 import { NextRequest, NextResponse } from 'next/server';
 
 const middleware = (req:NextRequest) => {
