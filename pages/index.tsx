@@ -277,7 +277,7 @@ const Home: NextPage = () => {
       </Link> */}
 
       <Link
-        href="/Resume"
+        href="/resume"
         passHref>
         <a target="_blank">
           <motion.div
