@@ -1,7 +1,7 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from 'next/head'
 
-const resume: NextPage = ({resumeURI}: any) => {  
+const currentresume: NextPage = ({resumeURI}: any) => {  
     return(
         <div>
             <Head><title>Résumé</title></Head>
@@ -12,7 +12,7 @@ const resume: NextPage = ({resumeURI}: any) => {
     ) 
 };
 
-export default resume;
+export default currentresume;
 
 export const getStaticProps: GetStaticProps = async(context) => {
     var blobLink:string  = "";
