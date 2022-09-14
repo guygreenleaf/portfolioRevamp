@@ -309,7 +309,7 @@ const Home: NextPage = () => {
         exit="exit" // Exit state (used later) to variants.exit
         transition={{ type: "linear", duration: 1.75 }} // Set the transition to linear
         className="">
-        <Flex direction="row" align="center" justify="center">
+        <Flex direction="row" align="center" justify="center" >
           <div className={styles.cardThreeContainer}>
             <div className={styles.cardThreeButtonContainer}>
               <a
