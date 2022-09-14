@@ -1,7 +1,7 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from 'next/head'
 
-let resume: NextPage = ({resumeURI}: any) => {  
+const resume: NextPage = ({resumeURI}: any) => {  
     return(
         <div>
             <Head><title>Résumé</title></Head>
@@ -14,12 +14,12 @@ let resume: NextPage = ({resumeURI}: any) => {
 
 export default resume;
 
-export let getStaticProps: GetStaticProps = async(context) => {
+export const getStaticProps: GetStaticProps = async(context) => {
     var blobLink:string  = "";
     var uri = "";
     
-    let https = require("https");
-    let agent = new https.Agent({
+    const https = require("https");
+    const agent = new https.Agent({
       rejectUnauthorized: false
     })
 

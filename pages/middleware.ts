@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-let Middleware = (req: NextRequest) => {
+const Middleware = (req: NextRequest) => {
   if (req.nextUrl.pathname === req.nextUrl.pathname.toLowerCase())
     return NextResponse.next();
 
@@ -8,3 +8,8 @@ let Middleware = (req: NextRequest) => {
 };
 
 export default Middleware;
+
+// See "Matching Paths" below to learn more
+export const config = {
+  matcher: '/(r|R)(e|E)(s|S)(u|U)(m|M)(e|E)',
+}
