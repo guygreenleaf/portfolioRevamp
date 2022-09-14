@@ -1,14 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const middleware = (req: NextRequest) => {
+export function middleware(req: NextRequest){
   if (req.nextUrl.pathname === req.nextUrl.pathname.toLowerCase())
     return NextResponse.next();
 
   return NextResponse.redirect(new URL(req.nextUrl.origin + req.nextUrl.pathname.toLowerCase()));
 };
 
-export default middleware;
-
 export const config = {
-  matcher: '/Resume',
+  matcher: '/*',
 }
+
