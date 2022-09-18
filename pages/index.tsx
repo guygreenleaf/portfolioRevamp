@@ -215,6 +215,7 @@ const Home: NextPage = () => {
                   width="80"
                   height="80"
                   layout="responsive"
+                  priority={true}
                 />
               </div>
             </div>
@@ -411,14 +412,16 @@ const Home: NextPage = () => {
                   <input
                     type="text"
                     placeholder="Your Name"
+                    maxLength={500}
                     style={{
                       marginLeft: "1rem",
                       border: "1px solid black",
                       borderRadius: "4px",
-                      width: "80%",
+                      width: "80%"
                     }}
                     value={from}
-                    onChange={nameChangeHandler}></input>
+                    onChange={nameChangeHandler}>               
+                    </input>
                 </div>
                 <div
                   style={{
@@ -432,6 +435,7 @@ const Home: NextPage = () => {
                   <input
                     type="text"
                     placeholder="Your Email"
+                    maxLength={500}
                     style={{
                       marginLeft: "1rem",
                       border: "1px solid black",
