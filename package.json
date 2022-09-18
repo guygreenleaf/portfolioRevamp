@@ -19,6 +19,8 @@
     "emailjs-com": "^3.2.0",
     "framer-motion": "^7.3.2",
     "gray-matter": "^4.0.3",
+    "logrocket": "^3.0.1",
+    "logrocket-react": "^5.0.1",
     "marked": "^4.1.0",
     "mongodb": "^4.9.1",
     "mongoose": "^6.6.0",

@@ -18,16 +18,16 @@ export const getStaticProps: GetStaticProps = async(context) => {
     var blobLink:string  = "";
     var uri = "";
     
-    const https = require("https");
-    const agent = new https.Agent({
-      rejectUnauthorized: false
-    })
-
     if(process.env.NODE_ENV == "development"){
         blobLink = `${process.env.NEXT_RESUME_BLOB_URI_DEV}`;
     } else {     
         blobLink = `${process.env.NEXT_RESUME_BLOB_URI_PROD}`;
     }
+
+    // const https = require("https");
+    // const agent = new https.Agent({
+    //   rejectUnauthorized: false
+    // })
     //NOTE: For Debug, need to add agent as second param and @ts-ignore this line 
     const res = await fetch(blobLink);
 

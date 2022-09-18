@@ -13,7 +13,6 @@ import { AiFillLinkedin } from "react-icons/ai";
 import { AiFillCamera } from "react-icons/ai";
 import { TiSocialInstagram } from "react-icons/ti";
 import { useToast } from "@chakra-ui/react";
-import cameraIco from "../media/camera.png";
 import contract from "../media/contract.png";
 import email from "../media/email.png";
 import {

@@ -5,8 +5,15 @@ import Script from 'next/script'
 import { ChakraProvider } from '@chakra-ui/react'
 //pd1
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    
+  const LogRocket = require('logrocket');
+  const setupLogRocketReact = require('logrocket-react');
+
+  if (typeof window !== 'undefined') {
+    LogRocket.init('qcrbh7/personalwebsite-o3z4s');
+    setupLogRocketReact(LogRocket);
+  }
+
+  return (    
     <ChakraProvider>
       <Script strategy="lazyOnload" src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENTID}}`}></Script>
       <Script id="google-analytics" strategy="lazyOnload">
