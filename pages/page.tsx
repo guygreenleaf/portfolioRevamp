@@ -1,6 +1,6 @@
 'use client'
 
-import '../styles/globals.css'
+// import '../styles/globals.css'
 import 'react-quill/dist/quill.snow.css'
 import type { AppProps } from 'next/app'
 import Script from 'next/script'
