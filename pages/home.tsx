@@ -1,10 +1,10 @@
-import type { NextPage } from "next";
+'use client'
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import profilePic from "../public/me.jpg";
 import styles from "../styles/Home.module.css";
-import { Flex, Box } from "@chakra-ui/react";
+import { Flex, Box, ChakraProvider } from "@chakra-ui/react";
 import { Stack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { Icon, IconButton } from "@chakra-ui/react";
@@ -39,7 +39,7 @@ const variants = {
   exit: { opacity: 0, x: 0, y: -100 },
 };
 
-const Home: NextPage = () => {
+export default function Home(){
   const [emailMessage, setEmailMessage] = useState("");
   const [isModalOpen, changeModalOpen] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
@@ -196,6 +196,7 @@ const Home: NextPage = () => {
   }
 
   return (
+
     <Stack spacing={10} className={styles.containerDiv}>
       <Head><title>Guy Greenleaf</title></Head>
       <motion.div
@@ -208,16 +209,12 @@ const Home: NextPage = () => {
         <Flex direction="row" align="center" justify="center">
           <div className={styles.cardContainer}>
             <div className={styles.cardOne}>
-              <div className={styles.imageContainer}>
                 <Image
                   src={profilePic}
+                  className={styles.imageContainer}
                   alt="me"
-                  width="80"
-                  height="80"
-                  layout="responsive"
                   priority={true}
                 />
-              </div>
             </div>
             <div className={styles.cardOneText}>
               Hi there 👋 
@@ -252,10 +249,10 @@ const Home: NextPage = () => {
         </Flex>
       </motion.div>
 
-      <Link
+      <Link      
         href="/resume"
-        passHref>
-        <a target="_blank">
+        passHref
+        target={"_blank"}>
           <motion.div
             variants={variants} // Pass the variant object into Framer Motion
             initial="hidden" // Set the initial state to variants.hidden
@@ -269,14 +266,13 @@ const Home: NextPage = () => {
                   <Image
                     src={contract}
                     alt="ResumeIcon"
-                    height="40px"
-                    width="40px"></Image>
+                    height={40}
+                    width={40}></Image>
                 </div>
                 <div className={styles.cardBlogText}>Résumé</div>
               </div>
             </Flex>
           </motion.div>
-        </a>
       </Link>
 
       <div onClick={() => modalChangeHandler()}>
@@ -293,8 +289,8 @@ const Home: NextPage = () => {
                 <Image
                   src={email}
                   alt="FlickerLogo"
-                  height="40px"
-                  width="40px"></Image>
+                  height={40}
+                  width={40}></Image>
               </div>
               <div className={styles.cardBlogText}>Contact</div>
             </div>
@@ -342,7 +338,7 @@ const Home: NextPage = () => {
 
             <div className={styles.cardThreeButtonContainer}>
               <a
-                href="https://www.instagram.com/g_.u_.y/"
+                href="https://www.instagram.com/guy_greenleaf/"
                 target="_blank"
                 rel="noreferrer">
                 <IconButton
@@ -506,7 +502,6 @@ const Home: NextPage = () => {
         </ModalContent>
       </Modal>
     </Stack>
-  );
-};
 
-export default Home;
+  );
+}

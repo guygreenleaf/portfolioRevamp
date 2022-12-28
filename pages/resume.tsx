@@ -15,20 +15,15 @@ const resume: NextPage = ({resumeURI}: any) => {
 export default resume;
 
 export const getStaticProps: GetStaticProps = async(context) => {
-    var blobLink:string  = "";
+    var blobLink:string  = `${process.env.NEXT_RESUME_BLOB_URI_PROD}`;
     var uri = "";
-    
-    if(process.env.NODE_ENV == "development"){
-        blobLink = `${process.env.NEXT_RESUME_BLOB_URI_DEV}`;
-    } else {     
-        blobLink = `${process.env.NEXT_RESUME_BLOB_URI_PROD}`;
-    }
 
+    //deprecated
     // const https = require("https");
     // const agent = new https.Agent({
     //   rejectUnauthorized: false
     // })
-    //NOTE: For Debug, need to add agent as second param and @ts-ignore this line 
+    //NOTE: For Debug, if needed, need to add agent as second param and @ts-ignore this line 
     const res = await fetch(blobLink);
 
     uri = await res.text();
