@@ -279,28 +279,32 @@ const Home: NextPage = () => {
         </a>
       </Link>
 
-      <div onClick={() => modalChangeHandler()}>
-        <motion.div
-          variants={variants} // Pass the variant object into Framer Motion
-          initial="hidden" // Set the initial state to variants.hidden
-          animate="enter" // Animated state to variants.enter
-          exit="exit" // Exit state (used later) to variants.exit
-          transition={{ type: "linear", duration: 1.5 }} // Set the transition to linear
-          className="">
-          <Flex direction="column" align="center" justify="center">
-            <div className={styles.cardBlogContainer}>
-              <div style={{ marginBottom: "5px" }}>
-                <Image
-                  src={email}
-                  alt="FlickerLogo"
-                  height="40px"
-                  width="40px"></Image>
+      <Link        
+        href="mailto:guygreenleaf@icloud.com"
+        passHref>
+        <div>
+          <motion.div
+            variants={variants} // Pass the variant object into Framer Motion
+            initial="hidden" // Set the initial state to variants.hidden
+            animate="enter" // Animated state to variants.enter
+            exit="exit" // Exit state (used later) to variants.exit
+            transition={{ type: "linear", duration: 1.5 }} // Set the transition to linear
+            className="">
+            <Flex direction="column" align="center" justify="center">
+              <div className={styles.cardBlogContainer}>
+                <div style={{ marginBottom: "5px" }}>
+                  <Image
+                    src={email}
+                    alt="FlickerLogo"
+                    height="40px"
+                    width="40px"></Image>
+                </div>
+                <div className={styles.cardBlogText}>Contact</div>
               </div>
-              <div className={styles.cardBlogText}>Contact</div>
-            </div>
-          </Flex>
-        </motion.div>
-      </div>
+            </Flex>
+          </motion.div>
+        </div>
+      </Link>
 
       <motion.div
         variants={variants} // Pass the variant object into Framer Motion
@@ -342,7 +346,7 @@ const Home: NextPage = () => {
 
             <div className={styles.cardThreeButtonContainer}>
               <a
-                href="https://www.instagram.com/g_.u_.y/"
+                href="https://www.instagram.com/guy.g_g/"
                 target="_blank"
                 rel="noreferrer">
                 <IconButton
@@ -372,139 +376,6 @@ const Home: NextPage = () => {
           </div>
         </Flex>
       </motion.div>
-
-      <Modal isOpen={isModalOpen} onClose={onModalClose} size="xl">
-        <ModalOverlay />
-        <ModalContent>
-          {isPreviewing === false ? (
-            <div>
-              <ModalHeader>Send Me An Email</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <div style={{ marginBottom: "1rem" }}>
-                  {validationErrors.length > 0 && (
-                    <h5
-                      style={{
-                        textDecoration: "underline",
-                        fontWeight: "bold",
-                        color: "red",
-                      }}>
-                      Please resolve the following:
-                    </h5>
-                  )}
-                  {validationErrors.map((err: string, index: number) => {
-                    return (
-                      <p style={{ color: "red" }} key={index}>
-                        {err}
-                      </p>
-                    );
-                  })}
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    marginBottom: "1rem",
-                  }}>
-                  <div style={{ width: "5rem" }}>
-                    <span style={{ float: "right" }}>Your Name</span>
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Your Name"
-                    maxLength={500}
-                    style={{
-                      marginLeft: "1rem",
-                      border: "1px solid black",
-                      borderRadius: "4px",
-                      width: "80%"
-                    }}
-                    value={from}
-                    onChange={nameChangeHandler}>               
-                    </input>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    marginBottom: "1rem",
-                  }}>
-                  <div style={{ width: "5rem" }}>
-                    <span style={{ float: "right" }}>Your Email</span>
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Your Email"
-                    maxLength={500}
-                    style={{
-                      marginLeft: "1rem",
-                      border: "1px solid black",
-                      borderRadius: "4px",
-                      width: "80%",
-                    }}
-                    value={fromEmail}
-                    onChange={emailChangeHandler}></input>
-                </div>
-                <div style={{ height: "18rem" }}>
-                  {/* @ts-ignore */}
-                  <ReactQuill
-                    theme="snow"
-                    value={emailMessage}
-                    onChange={setEmailMessage}
-                    style={{ height: "15rem" }}
-                  />
-                </div>
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  colorScheme="green"
-                  mr={0}
-                  onClick={() => previewChangeHandler()}>
-                  Preview & Send
-                </Button>
-              </ModalFooter>
-            </div>
-          ) : (
-            <div>
-              <ModalHeader>Send Me An Email</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <div style={{ border: "solid 1px black", borderRadius: "7px" }}>
-                  {/* @ts-ignore */}
-                  <ReactQuill
-                    value={emailMessage}
-                    readOnly={true}
-                    theme={"bubble"}
-                  />
-                </div>
-                <div>
-                  <ReCAPTCHA
-                    sitekey={
-                      process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
-                        ? process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
-                        : "error"
-                    }
-                    size="invisible"
-                    ref={recaptchaRef}
-                  />
-                </div>
-                <Box mt="4"></Box>
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  colorScheme="yellow"
-                  mr={3}
-                  onClick={() => previewChangeHandler()}>
-                  Back
-                </Button>
-                <Button colorScheme="green" mr={0} onClick={sendEmail}>
-                  Send
-                </Button>
-              </ModalFooter>
-            </div>
-          )}
-        </ModalContent>
-      </Modal>
     </Stack>
   );
 };
