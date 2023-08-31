@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
   reactStrictMode: true,
-  images: {
-    domains: ['i.imgur.com', 'res.cloudinary.com']
+  webpack: function (config) {
+    config.module.rules.push({
+      test: /\.md$/,
+      use: "raw-loader",
+    });
+    return config;
   },
-}
+};
+
+module.exports = nextConfig;

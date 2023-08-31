@@ -1,530 +1,170 @@
-import type { NextPage } from "next";
 import React, { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import profilePic from "../public/me.jpg";
-import styles from "../styles/Home.module.css";
-import { Flex, Box } from "@chakra-ui/react";
-import { Stack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { Icon, IconButton } from "@chakra-ui/react";
-import { AiFillGithub } from "react-icons/ai";
-import { AiFillLinkedin } from "react-icons/ai";
-import { AiFillCamera } from "react-icons/ai";
-import { TiSocialInstagram } from "react-icons/ti";
-import { useToast } from "@chakra-ui/react";
-import cameraIco from "../media/camera.png";
-import contract from "../media/contract.png";
-import email from "../media/email.png";
+import Link from "next/link";
+import TypingEffect from "./TypingEffect";
+import { IconButton } from "@chakra-ui/react";
+
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Button,
-} from "@chakra-ui/react";
-import dynamic from "next/dynamic";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-import "quill/dist/quill.snow.css"; // Add css for snow theme
-import ReCAPTCHA from "react-google-recaptcha";
-import * as emailjs from "emailjs-com";
+  BsInstagram,
+  BsYoutube,
+  BsFacebook,
+  BsLinkedin,
+  BsGithub,
+} from "react-icons/bs";
+import { redirect } from "next/dist/server/api-utils";
 
-const variants = {
-  hidden: { opacity: 0, x: -200, y: 0 },
-  enter: { opacity: 1, x: 0, y: 0 },
-  exit: { opacity: 0, x: 0, y: -100 },
-};
+export default function Home() {
+  const [showDescription, setShowDescription] = useState(false);
 
-const Home: NextPage = () => {
-  const [emailMessage, setEmailMessage] = useState("");
-  const [isModalOpen, changeModalOpen] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
-  const [from, setFrom] = useState("");
-  const [fromEmail, setFromEmail] = useState("");
-  let [validationErrors, setValidationErrors] = useState<string[]>([]);
-
-  const recaptchaRef: any = React.createRef();
-
-  const [isPreviewing, setPreviewing] = useState(false);
-
-  let previewChangeHandler = () => {
-    if (isPreviewing === false) {
-      setValidationErrors([]);
-      if (verifyEmail() === true) {
-        setPreviewing(true);
-      }
-      return;
-    }
-
-    recaptchaRef.current.reset();
-    resetState();
-    setPreviewing(false);
+  const headerStyle: React.CSSProperties = {
+    fontFamily: "Roboto Condensed, sans-serif",
+    fontSize: "2.5rem",
+    position: "absolute",
+    top: "30%",
+    transform: "translateY(-50%)",
+    left: "1.5rem",
+    display: "flex",
+    flexDirection: "column",
+    marginBottom: "1rem",
   };
 
-  let modalChangeHandler = () => {
-    changeModalOpen(!isModalOpen);
+  const descriptionStyle: React.CSSProperties = {
+    fontFamily: "Roboto Condensed, sans-serif",
+    fontSize: "1.2rem",
+    position: "absolute",
+    top: "calc(30% + 40px)",
+    left: "1.5rem",
+    opacity: showDescription ? 1 : 0,
+    transition: "opacity 1s ease-in-out",
+    paddingTop: "1rem",
   };
 
-  let onModalClose = () => {
-    setEmailMessage("");
-    changeModalOpen(false);
+  const handleTypingFinish = () => {
+    setShowDescription(true);
   };
 
-  let nameChangeHandler = (e: any) => {
-    e.preventDefault();
-    setFrom(e.target.value);
+  const handleMouseOver = (event: React.MouseEvent<HTMLParagraphElement>) => {
+    event.currentTarget.style.color = "#F28B3C";
+    event.currentTarget.style.fontWeight = "bold";
+    event.currentTarget.style.cursor = "pointer";
   };
 
-  let emailChangeHandler = (e: any) => {
-    e.preventDefault();
-    setFromEmail(e.target.value);
+  const handleMouseOut = (event: React.MouseEvent<HTMLParagraphElement>) => {
+    event.currentTarget.style.color = "black";
+    event.currentTarget.style.fontWeight = "normal";
+    event.currentTarget.style.cursor = "auto";
   };
-
-  let resetState = () => {
-    setIsVerified(false);
-    setFrom("");
-    setFromEmail("");
-    setEmailMessage("");
-  };
-
-  let verifyEmail = (): boolean => {
-    var isValid = true;
-
-    setValidationErrors([]);
-
-    if (emailMessage.length === 0) {
-      setValidationErrors((curr) => [...curr, "Please enter a message."]);
-      isValid = false;
-    }
-    if (from.length === 0) {
-      setValidationErrors((curr) => [...curr, "Please enter your name."]);
-      isValid = false;
-    }
-    if (
-      fromEmail.length === 0 ||
-      !fromEmail.match(
-        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      )
-    ) {
-      setValidationErrors((curr) => [
-        ...curr,
-        "Please enter a valid email address.",
-      ]);
-      isValid = false;
-    }
-    return isValid;
-  };
-
-  const toast: any = useToast();
-
-  let ValidateHuman = async (token: string) => {
-    return await (await fetch(`/api/validateHuman/${token}`)).json();
-  };
-
-  async function sendEmail() {
-    recaptchaRef.current.reset();
-
-    const token = await recaptchaRef.current.executeAsync();
-
-    const isValidRecaptcha = await ValidateHuman(token);
-
-    const templateParams = {
-      from_name: from,
-      from_email: fromEmail,
-      to_name: "Guy Greenleaf",
-      message: emailMessage,
-    };
-
-    if (verifyEmail() === true && isValidRecaptcha === true) {
-      emailjs
-        .send(
-          process.env.NEXT_PUBLIC_SERVICE_ID ?? "error",
-          process.env.NEXT_PUBLIC_TEMPLATE_ID ?? "error",
-          templateParams,
-          process.env.NEXT_PUBLIC_EMAILJS_USER_ID
-        )
-        .then(
-          (result: any) => {
-            if (result.text === "OK") {
-              resetState();
-              setPreviewing(false);
-              changeModalOpen(false);
-              toast({
-                title: "Email Sent!",
-                description: "I'll reach out to you soon!",
-                status: "success",
-                duration: 9000,
-                isClosable: true,
-              });
-            }
-          },
-          (error: any) => {
-            toast({
-              title: `Error sending email - ${error}.`,
-              description: "Please Contact Me - contact@guygreenleaf.com.",
-              status: "error",
-              duration: 9000,
-              isClosable: true,
-            });
-          }
-        );
-    } else {
-      if (validationErrors.length > 0) {
-        validationErrors.forEach((element) => {
-          toast({
-            title: "Error Sending Email.",
-            description: `Error - ${element}`,
-            status: "error",
-            duration: 9000,
-            isClosable: true,
-          });
-        });
-      } else if (isValidRecaptcha === false) {
-        toast({
-          title: "Error Sending Email.",
-          description: `Error - Invalid Recaptcha`,
-          status: "error",
-          duration: 9000,
-          isClosable: true,
-        });
-      }
-    }
-  }
 
   return (
-    <Stack spacing={10} className={styles.containerDiv}>
-      <motion.div
-        variants={variants} // Pass the variant object into Framer Motion
-        initial="hidden" // Set the initial state to variants.hidden
-        animate="enter" // Animated state to variants.enter
-        exit="exit" // Exit state (used later) to variants.exit
-        transition={{ type: "linear", duration: 0.5 }} // Set the transition to linear
-        className="">
-        <Flex direction="row" align="center" justify="center">
-          <div className={styles.cardContainer}>
-            <div className={styles.cardOne}>
-              <div className={styles.imageContainer}>
-                <Image
-                  src={profilePic}
-                  alt="me"
-                  width="80"
-                  height="80"
-                  layout="responsive"
-                />
-              </div>
-            </div>
-            <div className={styles.cardOneText}>
-              Hi there 👋 
-            </div>
-          </div>
-        </Flex>
-      </motion.div>
-
-      <motion.div
-        variants={variants} // Pass the variant object into Framer Motion
-        initial="hidden" // Set the initial state to variants.hidden
-        animate="enter" // Animated state to variants.enter
-        exit="exit" // Exit state (used later) to variants.exit
-        transition={{ type: "linear", duration: 0.75 }} // Set the transition to linear
-        className="">
-        <Flex direction="row" align="center" justify="center">
-          <div className={styles.cardTwoContainer}>
-            <div className={styles.cardTwoText}>Thanks for stopping by.</div>
-            <div className={styles.cardTwoText}>
-              I&apos;m currently working for the{" "}
-              <a
-                href="https://slocounty.ca.gov/"
-                target="_blank"
-                rel="noreferrer"
-                className={styles.countyText}>
-                county of SLO{" "}
-              </a>
-              as a Software Engineer.
-            </div>
-          </div>
-        </Flex>
-      </motion.div>
-
-      {/* <Link href="https://www.flickr.com/photos/195923393@N02/" passHref>
-        <a target="_blank">
-          <motion.div
-            variants={variants} // Pass the variant object into Framer Motion
-            initial="hidden" // Set the initial state to variants.hidden
-            animate="enter" // Animated state to variants.enter
-            exit="exit" // Exit state (used later) to variants.exit
-            transition={{ type: "linear", duration: 1 }} // Set the transition to linear
-            className="">
-            <Flex direction="column" align="center" justify="center">
-              <div className={styles.cardBlogContainer}>
-                <div style={{ marginBottom: "5px" }}>
-                  <Image
-                    src={cameraIco}
-                    alt="FlickerLogo"
-                    height="40px"
-                    width="40px"></Image>
-                </div>
-                <div className={styles.cardBlogText}>Photography</div>
-              </div>
-            </Flex>
-          </motion.div>
-        </a>
-      </Link> */}
-
-      <Link
-        href="https://publicfilesggreenleaf.s3.us-west-1.amazonaws.com/resume21.pdf"
-        passHref>
-        <a target="_blank">
-          <motion.div
-            variants={variants} // Pass the variant object into Framer Motion
-            initial="hidden" // Set the initial state to variants.hidden
-            animate="enter" // Animated state to variants.enter
-            exit="exit" // Exit state (used later) to variants.exit
-            transition={{ type: "linear", duration: 1.25 }} // Set the transition to linear
-            className="">
-            <Flex direction="column" align="center" justify="center">
-              <div className={styles.cardBlogContainer}>
-                <div>
-                  <Image
-                    src={contract}
-                    alt="ResumeIcon"
-                    height="40px"
-                    width="40px"></Image>
-                </div>
-                <div className={styles.cardBlogText}>Résumé</div>
-              </div>
-            </Flex>
-          </motion.div>
-        </a>
-      </Link>
-
-      <div onClick={() => modalChangeHandler()}>
-        <motion.div
-          variants={variants} // Pass the variant object into Framer Motion
-          initial="hidden" // Set the initial state to variants.hidden
-          animate="enter" // Animated state to variants.enter
-          exit="exit" // Exit state (used later) to variants.exit
-          transition={{ type: "linear", duration: 1.5 }} // Set the transition to linear
-          className="">
-          <Flex direction="column" align="center" justify="center">
-            <div className={styles.cardBlogContainer}>
-              <div style={{ marginBottom: "5px" }}>
-                <Image
-                  src={email}
-                  alt="FlickerLogo"
-                  height="40px"
-                  width="40px"></Image>
-              </div>
-              <div className={styles.cardBlogText}>Contact</div>
-            </div>
-          </Flex>
-        </motion.div>
-      </div>
-
-      <motion.div
-        variants={variants} // Pass the variant object into Framer Motion
-        initial="hidden" // Set the initial state to variants.hidden
-        animate="enter" // Animated state to variants.enter
-        exit="exit" // Exit state (used later) to variants.exit
-        transition={{ type: "linear", duration: 1.75 }} // Set the transition to linear
-        className="">
-        <Flex direction="row" align="center" justify="center">
-          <div className={styles.cardThreeContainer}>
-            <div className={styles.cardThreeButtonContainer}>
-              <a
-                href="https://github.com/guygreenleaf"
-                target="_blank"
-                rel="noreferrer">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 0.4 } }}
+      exit={{ opacity: 0, transition: { duration: 1.2 } }}>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <TypingEffect
+          text="Guy Greenleaf"
+          style={headerStyle}
+          onFinish={handleTypingFinish}
+        />
+        <div style={descriptionStyle}>
+          <p
+            style={{
+              fontWeight: "500",
+              fontSize: "22px",
+              marginBottom: "0.25rem",
+            }}>
+            Hey there 👋 Thanks for stopping by. I&apos;m currently working as a
+            Software Engineer II for
+          </p>{" "}
+          <p
+            style={{
+              fontWeight: "500",
+              fontSize: "22px",
+            }}>
+            the County of San Luis Obispo Department of Social Services. ☀️🌊{" "}
+          </p>
+          <div style={{ marginTop: "1.5rem", fontSize: "18px" }}>
+            <Link href="/resume" style={{ display: "block", width: "8rem" }}>
+              <p
+                style={{
+                  cursor: "pointer",
+                  width: "12.5rem",
+                  marginBottom: "0.2rem",
+                }}
+                onMouseOver={handleMouseOver}
+                onMouseOut={handleMouseOut}>
+                Résumé
+              </p>
+            </Link>
+            <Link href="/FP" style={{ display: "block", width: "8rem" }}>
+              <p
+                style={{
+                  cursor: "pointer",
+                  width: "8rem",
+                  marginBottom: "0.2rem",
+                }}
+                onMouseOver={handleMouseOver}
+                onMouseOut={handleMouseOut}>
+                Featured Photo
+              </p>
+            </Link>
+            <p
+              style={{
+                cursor: "pointer",
+                width: "3.7rem",
+                marginBottom: "0.2rem",
+              }}
+              onMouseOver={handleMouseOver}
+              onMouseOut={handleMouseOut}>
+              <a href="mailto:guygreenleaf@icloud.com">Contact</a>
+            </p>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                marginTop: "1.5rem",
+              }}>
+              <Link href={"https://www.instagram.com/guy.g_g/"} target="_blank">
                 <IconButton
+                  variant="outline"
+                  colorScheme="blackAlpha"
+                  aria-label="Instagram"
+                  icon={<BsInstagram />}
+                />
+              </Link>
+              <Link href={"https://www.youtube.com/@guy.g"} target="_blank">
+                <IconButton
+                  variant="outline"
+                  marginLeft={"1rem"}
+                  colorScheme="blackAlpha"
+                  aria-label="Youtube"
+                  icon={<BsYoutube />}
+                />
+              </Link>
+              <Link
+                href={"https://www.linkedin.com/in/guy-greenleaf/"}
+                target="_blank">
+                <IconButton
+                  variant="outline"
+                  marginLeft={"1rem"}
+                  colorScheme="blackAlpha"
+                  aria-label="LinkedIn"
+                  icon={<BsLinkedin />}
+                />
+              </Link>
+              <Link href={"https://github.com/guygreenleaf"} target="_blank">
+                <IconButton
+                  variant="outline"
+                  marginLeft={"1rem"}
                   colorScheme="blackAlpha"
                   aria-label="GitHub"
-                  size="lg"
-                  fontSize="40px"
-                  icon={<Icon as={AiFillGithub} />}
+                  icon={<BsGithub />}
                 />
-              </a>
-            </div>
-            <div className={styles.cardThreeButtonContainer}>
-              <a
-                href="https://www.linkedin.com/in/guy-greenleaf/"
-                target="_blank"
-                rel="noreferrer">
-                <IconButton
-                  colorScheme="linkedin"
-                  aria-label="LinkedIn"
-                  size="lg"
-                  fontSize="40px"
-                  icon={<Icon as={AiFillLinkedin} />}
-                />
-              </a>
-            </div>
-
-            <div className={styles.cardThreeButtonContainer}>
-              <a
-                href="https://www.instagram.com/guy_greenleaf/"
-                target="_blank"
-                rel="noreferrer">
-                <IconButton
-                  colorScheme="purple"
-                  aria-label="Instagram"
-                  size="lg"
-                  fontSize="40px"
-                  icon={<Icon as={TiSocialInstagram} />}
-                />
-              </a>
-            </div>
-
-            <div className={styles.cardThreeButtonContainer}>
-              <a
-                href="https://www.vero.co/guygreenleaf"
-                target="_blank"
-                rel="noreferrer">
-                <IconButton
-                  colorScheme="green"
-                  aria-label="Vero"
-                  size="lg"
-                  fontSize="40px"
-                  icon={<Icon as={AiFillCamera} />}
-                />
-              </a>
+              </Link>
             </div>
           </div>
-        </Flex>
-      </motion.div>
-
-      <Modal isOpen={isModalOpen} onClose={onModalClose} size="xl">
-        <ModalOverlay />
-        <ModalContent>
-          {isPreviewing === false ? (
-            <div>
-              <ModalHeader>Send Me An Email</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <div style={{ marginBottom: "1rem" }}>
-                  {validationErrors.length > 0 && (
-                    <h5
-                      style={{
-                        textDecoration: "underline",
-                        fontWeight: "bold",
-                        color: "red",
-                      }}>
-                      Please resolve the following:
-                    </h5>
-                  )}
-                  {validationErrors.map((err: string, index: number) => {
-                    return (
-                      <p style={{ color: "red" }} key={index}>
-                        {err}
-                      </p>
-                    );
-                  })}
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    marginBottom: "1rem",
-                  }}>
-                  <div style={{ width: "5rem" }}>
-                    <span style={{ float: "right" }}>Your Name</span>
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Your Name"
-                    style={{
-                      marginLeft: "1rem",
-                      border: "1px solid black",
-                      borderRadius: "4px",
-                      width: "80%",
-                    }}
-                    value={from}
-                    onChange={nameChangeHandler}></input>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    marginBottom: "1rem",
-                  }}>
-                  <div style={{ width: "5rem" }}>
-                    <span style={{ float: "right" }}>Your Email</span>
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Your Email"
-                    style={{
-                      marginLeft: "1rem",
-                      border: "1px solid black",
-                      borderRadius: "4px",
-                      width: "80%",
-                    }}
-                    value={fromEmail}
-                    onChange={emailChangeHandler}></input>
-                </div>
-                <div style={{ height: "18rem" }}>
-                  {/* @ts-ignore */}
-                  <ReactQuill
-                    theme="snow"
-                    value={emailMessage}
-                    onChange={setEmailMessage}
-                    style={{ height: "15rem" }}
-                  />
-                </div>
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  colorScheme="green"
-                  mr={0}
-                  onClick={() => previewChangeHandler()}>
-                  Preview & Send
-                </Button>
-              </ModalFooter>
-            </div>
-          ) : (
-            <div>
-              <ModalHeader>Send Me An Email</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <div style={{ border: "solid 1px black", borderRadius: "7px" }}>
-                  {/* @ts-ignore */}
-                  <ReactQuill
-                    value={emailMessage}
-                    readOnly={true}
-                    theme={"bubble"}
-                  />
-                </div>
-                <div>
-                  <ReCAPTCHA
-                    sitekey={
-                      process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
-                        ? process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
-                        : "error"
-                    }
-                    size="invisible"
-                    ref={recaptchaRef}
-                  />
-                </div>
-                <Box mt="4"></Box>
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  colorScheme="yellow"
-                  mr={3}
-                  onClick={() => previewChangeHandler()}>
-                  Back
-                </Button>
-                <Button colorScheme="green" mr={0} onClick={sendEmail}>
-                  Send
-                </Button>
-              </ModalFooter>
-            </div>
-          )}
-        </ModalContent>
-      </Modal>
-    </Stack>
+        </div>
+      </div>
+    </motion.div>
   );
-};
-
-export default Home;
+}

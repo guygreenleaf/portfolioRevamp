@@ -1,18 +1,13 @@
-import '../styles/globals.css'
-import 'react-quill/dist/quill.snow.css'
-import type { AppProps } from 'next/app'
+import "@/styles/globals.css";
+import { Box, ChakraProvider } from "@chakra-ui/react";
+import type { AppProps } from "next/app";
 
-import { ChakraProvider } from '@chakra-ui/react'
-//pd1
-function MyApp({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    
     <ChakraProvider>
-      <meta name="viewport" content="width=device-width, user-scalable=no" />
-      <Component {...pageProps} />
+      <Box bg="#e0e0e0" minH="100vh">
+        <Component {...pageProps} />
+      </Box>
     </ChakraProvider>
-  )
+  );
 }
-
-export default MyApp
-
