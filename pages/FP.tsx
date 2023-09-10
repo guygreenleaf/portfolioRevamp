@@ -9,7 +9,8 @@ export default function FP() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { duration: 1.2 } }}
-      exit={{ opacity: 0, transition: { duration: 1.2 } }}>
+      exit={{ opacity: 0, transition: { duration: 1.2 } }}
+    >
       <div>
         <Link href="/">
           <IconButton
@@ -37,7 +38,7 @@ export default function FP() {
         <div
           style={{
             display: "flex",
-            height: "70vh",
+            height: "90vh",
             flexDirection: "column",
             alignItems: "center",
           }}>
@@ -59,21 +60,23 @@ export default function FP() {
               marginTop: "1rem",
             }}>
             <p style={{ fontSize: "1.25rem" }}>
-              This featured photo changes once a week on Sundays. If you decide
-              to use it for anything, please make sure to give me credit!
+              This featured photo changes twice a week on Saturdays and Wednesdays.
             </p>
           </div>
 
           <div style={{ marginTop: "2rem" }}>
-            <Image
-              src="/ttower.jpg"
-              alt="Tokyo Tower"
-              width={350}
-              height={350}
-            />
+            <div style={{width:"100%"}}>
+                <Image
+                  src="/bsc.jpg"
+                  alt="Tokyo Tower"
+                  width={400}
+                  height={500}
+                  priority
+                />
+            </div>
           </div>
 
-          <span style={{ fontStyle: "italic" }}>Tokyo Tower 2023-09-01</span>
+          <span style={{ fontStyle: "italic" }}>Biker @ Shibuya Crossing, 2023-09-02</span>
         </div>
       </div>
     </motion.div>
