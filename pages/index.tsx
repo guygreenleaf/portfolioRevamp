@@ -74,7 +74,7 @@ export default function Home() {
               marginBottom: "0.25rem",
             }}>
             Hey there 👋 Thanks for stopping by. I&apos;m currently working as a
-            Software Engineer II for
+            Software Engineer III for
           </p>{" "}
           <p
             style={{
