@@ -132,7 +132,7 @@ export default function Home() {
                   icon={<BsInstagram />}
                 />
               </Link>
-              <Link href={"https://www.youtube.com/@guy.g"} target="_blank">
+              <Link href={"https://www.youtube.com/@guygreenleaf"} target="_blank">
                 <IconButton
                   variant="outline"
                   marginLeft={"1rem"}

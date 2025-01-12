@@ -60,7 +60,7 @@ export default function FP() {
               marginTop: "1rem",
             }}>
             <p style={{ fontSize: "1.25rem" }}>
-              This featured photo changes twice a week on Saturdays and Wednesdays.
+              This featured photo changes once a year (Or when I feel like it :D).
             </p>
           </div>
 
@@ -76,7 +76,7 @@ export default function FP() {
             </div>
           </div>
 
-          <span style={{ fontStyle: "italic" }}>Biker @ Shibuya Crossing, 2023-09-02</span>
+          <span style={{ fontStyle: "italic" }}>花の中の鳥, 2024</span>
         </div>
       </div>
     </motion.div>
